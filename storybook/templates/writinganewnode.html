@@ -4,7 +4,8 @@
 <!--TEMPLATE: writinganewnode.html -->
 <h1 class="heading">Write the next part of the story!</h1>
 <section>
-<form action="/submitnode/"
+<form action="/submitnode/{{ parentnode.id }}" method="post">
+{{ form }}
 
 </section>
 <!--ENDTEMPLATE-->

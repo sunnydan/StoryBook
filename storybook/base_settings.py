@@ -105,6 +105,7 @@ BASE_INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'storybook.stories',
+    'tinymce',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -142,3 +143,11 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
 )
+
+TINYMCE_DEFAULT_CONFIG = {
+'theme': "advanced",
+'theme_advanced_toolbar_location' : "top",
+'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,separator,outdent,indent,separator,undo,redo",
+'theme_advanced_buttons2': "",
+'theme_advanced_buttons3': "",
+}
