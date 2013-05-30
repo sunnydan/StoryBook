@@ -1,0 +1,70 @@
+/* Import Google fonts */
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+
+/* Global <body> style */
+body {
+    margin: 0px;
+    font-family: 'Oswald', sans-serif;
+}
+
+/* Site <header> style */
+header h1 {
+    padding: 20px;
+    margin: 0px;
+    text-align: right;
+    color: #FFFFFF;
+    background: #1B70B0;
+}
+header nav {
+    padding: 20px;
+    float: left;
+    font-weight: normal;
+    font-size: 1.5em;
+    margin-right: 15px;
+}
+header nav a, header nav a:visited {
+    text-decoration: none;
+    color: #A6C9E3;
+}
+header nav a:hover {
+    color: #FFFFFF;
+}
+header nav a, header nav span {
+    margin-right: 10px;
+}
+
+/* Site <section> style */
+section {
+    margin: 0px 30px 0px 30px;
+    padding: 10px;
+    border: 1px dotted #D8BFD8;
+    font-family: 'Oswald', sans-seriff;
+}
+
+/* Site heading block style */
+.heading {
+    margin-left: 30px;
+}
+
+/* Site body style */
+#storyDescription {
+    font-family: sans-seriff;
+}
+.button {
+    padding: 2px 5px 2px 5px;
+    background-color: #DDD;
+    border: 1px solid #1B70B0;
+    border-radius: 10px;
+    color: #1B70B0;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+/* Site footer style */
+footer {
+    margin: 0px 30px 0px 30px;
+    padding-top: 10px;
+}
+#djangoIcon {
+    float: right;
+}
