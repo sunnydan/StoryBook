@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Main Page{% endblock %}
+{% block content %}
+<!--TEMPLATE: home.html -->
+{% if rootnodes %}
+<section>
+<ul id="storyList">
+{% for node in rootnodes %}
+    <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
+{% endfor %}
+</ul>
+</section>
+{% endif %}
+<!--ENDTEMPLATE-->
+{% endblock %}

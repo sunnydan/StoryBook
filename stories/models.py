@@ -9,6 +9,9 @@ class Node(models.Model):
     text = models.TextField()
     points = models.IntegerField(default=0)
 
+    def __unicode__(self):
+        return str(self.action)
+
 class Properties(models.Model):
     user = models.OneToOneField(User)
     avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 

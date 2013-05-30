@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{node.action}}{% endblock %}
+{% block content %}
+<!--TEMPLATE: node.html -->
+<h1 class="heading">{{node.action}}</h1>
+<section>
+<p id="storyDescription">
+{{node.text}}
+</p>
+Author: {{node.author}}<br/>
+{% include "nextnodes.html" %}
+</section>
+<!--ENDTEMPLATE-->
+{% endblock %}

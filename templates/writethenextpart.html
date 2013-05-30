@@ -1,0 +1,10 @@
+{% extends "blank.html" %}
+{% block content %}
+<!--TEMPLATE: writethenextpart.html-->
+{% if user.is_authenticated %}
+    <li><a href="/writenextnode:{{node.id}}">Write the next part of the story here!</a></li>
+{% else %}
+    <li>Create an account to write the next part of the story here!</li>
+{% endif %}
+<!--ENDTEMPLATE-->
+{% endblock %}
