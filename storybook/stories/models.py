@@ -14,4 +14,4 @@ class Node(models.Model):
 
 class Properties(models.Model):
     user = models.OneToOneField(User)
-    avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
+    #avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
