@@ -84,13 +84,13 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'cosmetologyregistry.urls'
+ROOT_URLCONF = 'storybook.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'cosmetologyregistry.wsgi.application'
 
 TEMPLATE_DIRS = (
-    'cosmetologyregistry/templates',
+    'storybook/templates',
 )
 
 BASE_INSTALLED_APPS = (
@@ -104,7 +104,7 @@ BASE_INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'cosmetologyregistry',
+    'storybook',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -140,6 +140,5 @@ LOGIN_URL = '/login'
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
-    'cosmetologyregistry.views.nextapt_context',
     'django.core.context_processors.request',
 )
