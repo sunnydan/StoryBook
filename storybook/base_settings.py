@@ -1,35 +1,22 @@
-# Django settings for storybook project.
+# Django settings for cosmetologyregistry project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 ADMINS = (
-    ('Daniel Hilla', 'danielhilla@gmail.com'),
+    # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/dhilla/djcode/StoryBook/storybook.db',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
-}
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'Etc/GMT-5'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -49,29 +36,27 @@ USE_L10N = True
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/home/dhilla/djcode/StoryBook/media/'
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = '/media/'
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = ''
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/home/dhilla/djcode/StoryBook/media/static/'
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = ''
 
 # URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
+# Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -81,9 +66,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 't5-7oyzkiz%27nufu0p!mrvvy)go6%l^%1mfen6xju&4_70-is'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -102,16 +84,16 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'storybook.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'cosmetologyregistry.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/home/dhilla/djcode/StoryBook/templates',
+    'storybook/templates',
 )
 
-INSTALLED_APPS = (
+BASE_INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -121,9 +103,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    'django.contrib.admindocs',
-    'stories',
-    #'tinymce',
+    # 'django.contrib.admindocs',
+    'storybook',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -155,4 +136,9 @@ LOGGING = {
     }
 }
 
-REGISTRATION_TOKEN = ""
+LOGIN_URL = '/login'
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+)
