@@ -1,4 +1,4 @@
-# Django settings for cosmetologyregistry project.
+# Django settings for StoryBook.
 import os
 
 DEBUG = True
@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('Your name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -87,7 +87,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'storybook.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'cosmetologyregistry.wsgi.application'
+WSGI_APPLICATION = 'storybook.wsgi.application'
 
 TEMPLATE_DIRS = (
     'storybook/templates',
@@ -104,7 +104,7 @@ BASE_INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'storybook',
+    'storybook.stories',
 )
 
 # A sample logging configuration. The only tangible logging
