@@ -1,4 +1,5 @@
 *.pyc
 database
 venv
-settings.py
+settings_dev.py
+
