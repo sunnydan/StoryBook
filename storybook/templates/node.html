@@ -1,13 +1,23 @@
 {% extends "base.html" %}
-{% block title %}{{node.action}}{% endblock %}
+{% block title %}{{ node.action }}{% endblock %}
+{% block topthings %}
+{% if node.parent %}
+<a id="previous" href="/node:{{ node.parent.id }}/">prev</a>
+<h1 class="heading">{{ node.action }}</h1>
+{% else %}
+<h1 class="heading2">{{ node.action }}</h1>
+{% endif %}
+{% endblock %}
 {% block content %}
 <!--TEMPLATE: node.html -->
-<h1 class="heading">{{node.action}}</h1>
 <section>
-<p id="storyDescription">
-{{node.text|safe}}
-</p>
-Author: {{node.author}}<br/>
+<div id="storyDescription">
+{{ node.text|safe }}
+</div>
+<hr/>
+Author: {{ node.author }}
+<hr/>
+What do you want to do next?
 {% include "nextnodes.html" %}
 </section>
 <!--ENDTEMPLATE-->

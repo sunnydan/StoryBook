@@ -22,8 +22,11 @@
     <h1>Our Storybook</h1>
     </header>
     
-    <h1 class="heading">{% block heading %}{% endblock %}</h1>
-
+    <div id="topthings">
+    {% block topthings %}
+    {% endblock %}
+    </div>
+    
     <div class="row-fluid">
         {% block content %}
         {% endblock %}

@@ -43,7 +43,22 @@ section {
 
 /* Site heading block style */
 .heading {
+    display: inline;
+}
+
+.heading2 {
+    display: inline;
     margin-left: 30px;
+}
+
+#topthings {
+    min-height: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#previous {
+    display: inline-block;
 }
 
 /* Site body style */
@@ -71,4 +86,9 @@ footer {
 
 .errorlist {
     display: none;
+}
+
+#storyList {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
