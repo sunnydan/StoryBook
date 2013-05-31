@@ -144,10 +144,16 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
 )
 
-TINYMCE_DEFAULT_CONFIG = {
+"""TINYMCE_DEFAULT_CONFIG = {
 'theme': "advanced",
 'theme_advanced_toolbar_location' : "top",
 'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,separator,outdent,indent,separator,undo,redo",
 'theme_advanced_buttons2': "",
 'theme_advanced_buttons3': "",
+}"""
+
+TINYMCE_JS_URL = '/media/static/tinymce/jscripts/tiny_mce/tiny_mce_src.js'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",     
 }
+TINYMCE_SPELLCHECKER = True
