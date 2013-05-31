@@ -12,7 +12,6 @@
     <header>
         <nav>
             <a href="/">Home</a>
-
             {% if user.is_authenticated %}
             <a href="/logout/">Logout</a>
             <a href="/accounts/profile/">{{user.username}}</a>

@@ -68,3 +68,7 @@ footer {
 #djangoIcon {
     float: right;
 }
+
+.errorlist {
+    display: none;
+}
