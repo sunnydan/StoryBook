@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', profile),
     url(r'^node:(\d+)/$', node),
     url(r'^writenextnode:(\d+)/$', writenextnode),
+    url(r'^submitnode:(\d+)/$', submitnode),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

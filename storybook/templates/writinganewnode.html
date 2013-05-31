@@ -2,15 +2,16 @@
 {% block title %}New Node{% endblock %}
 {% block content %}
 <!--TEMPLATE: writinganewnode.html -->
-<h1 class="heading">Write the next part of the story!</h1>
-<section>
-    {{ form.media }}
-    <form action="/submitnode/{{ parentnode.id }}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type='submit' value='Submit'>
-    </form>
-
-</section>
+{% if user.is_authenticated %}
+    <h1 class="heading">Write the next part of the story!</h1>
+    <section>
+        {{ form.media }}
+        <form action="/submitnode:{{ parentid }}/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type='submit' value='Submit'>
+        </form>
+    </section>
+{% endif %}
 <!--ENDTEMPLATE-->
 {% endblock %}

@@ -5,7 +5,7 @@
 <h1 class="heading">{{node.action}}</h1>
 <section>
 <p id="storyDescription">
-{{node.text}}
+{{node.text|safe}}
 </p>
 Author: {{node.author}}<br/>
 {% include "nextnodes.html" %}
