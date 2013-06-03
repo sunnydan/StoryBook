@@ -11,13 +11,14 @@ from stories.models import *
 from registrationviews import *
 from django.http import HttpResponseRedirect
 from helpers import *
+from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
     rootnodes = Node.objects.all().filter(parent=None)
     return render_to_response("home.html", {'rootnodes': rootnodes}, context_instance=RequestContext(request))
 
 def node(request, nodeid):
-    node = Node.objects.all().get(id=nodeid)
+    node = findNode(nodeid)
     nextnodes = Node.objects.all().filter(parent=node)
     nextnode1 = None
     nextnode2 = None
@@ -28,7 +29,20 @@ def node(request, nodeid):
         nextnode2 = nextnodes[1]
     if len(nextnodes)>2:
         nextnode3 = nextnodes[2]
-    return render_to_response("node.html", {'node': node, 'nextnode1':nextnode1, 'nextnode2':nextnode2, 'nextnode3':nextnode3}, context_instance=RequestContext(request))
+    voted_already = False
+    if request.user.is_authenticated:
+        properties = findProperties(request.user)
+        if properties.already_voted_nodes.all().filter(id = nodeid):
+            voted_already = True
+    print(node.points)
+    context = {
+        'node': node,
+        'nextnode1': nextnode1, 
+        'nextnode2': nextnode2, 
+        'nextnode3': nextnode3,
+        'voted_already': voted_already,
+        }
+    return render_to_response("node.html", context, context_instance=RequestContext(request))
  
 def profile(request):
     if request.user.is_authenticated():
@@ -59,3 +73,17 @@ def submitnode(request, parentid):
             return goHome()            
     else:
         return goHome() 
+
+def votenode(request, nodeid):
+    if request.user.is_authenticated() and request.method == "POST":
+        node = findNode(nodeid)
+        properties = findProperties(request.user)
+        if not node in properties.already_voted_nodes.all():
+            properties.already_voted_nodes.add(node)
+            node.points += 1
+            node.save()
+            return HttpResponseRedirect("/node:"+str(node.id)+"/")
+        else:
+            return HttpResponseRedirect("/node:"+str(node.id)+"/")
+    else:     
+        return goHome()

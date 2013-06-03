@@ -7,7 +7,7 @@ class Node(models.Model):
     lastedited = models.DateTimeField(auto_now=True)
     action = models.CharField(max_length=30)
     text = models.TextField()
-    points = models.IntegerField(default=0)
+    points = models.IntegerField()
 
     def __unicode__(self):
         return str(self.action)
@@ -15,3 +15,7 @@ class Node(models.Model):
 class Properties(models.Model):
     user = models.OneToOneField(User)
     #avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
+    already_voted_nodes = models.ManyToManyField(Node)    
+ 
+    def __unicode__(self):
+        return str(self.user.username)
