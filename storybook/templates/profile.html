@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block title %}User Profile{% endblock %}
+{% block topthings %}
+<div id="topthings">
+<h1 class="heading2">User Profile</h1>
+</div>
+{% endblock %}
 {% block content %}
 <!--TEMPLATE: profile.html -->
 {% if user.is_authenticated %}

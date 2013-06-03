@@ -15,19 +15,21 @@
 {{ node.text|safe }}
 </div>
 <hr/>
-<p id="nodestats">
+<div id="nodestats">
 Author: {{ node.author }} | Points: {{ node.points }}
 {% if user.is_authenticated %}
 {% if not approved_already %}
 <form id="approveform" action="/approve:{{ node.id }}/" method="POST"> 
     {% csrf_token %}
-    <input type="submit" value="approve">
+    <input type="submit" value="Approve">
 </form>
 {% endif %}
 {% endif %}
-</p>
+</div>
 <hr/>
+<p style="color: #2F6188; display: inline;">
 What do you want to do next?
+</p>
 {% include "nextnodes.html" %}
 </section>
 <!--ENDTEMPLATE-->

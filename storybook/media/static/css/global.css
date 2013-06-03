@@ -7,13 +7,25 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
+a {
+    color: #66A3D2;
+}
+
+a:hover {
+    color: #0B61A4;
+}
+
 /* Site <header> style */
+header {
+    background: #1B6FB0;
+}
+
 header h1 {
     padding: 20px;
     margin: 0px;
     text-align: right;
     color: #FFFFFF;
-    background: #1B70B0;
+    background: #1B6FB0;
 }
 header nav {
     padding: 20px;
@@ -24,7 +36,7 @@ header nav {
 }
 header nav a, header nav a:visited {
     text-decoration: none;
-    color: #A6C9E3;
+    color: #88B9DF;
 }
 header nav a:hover {
     color: #FFFFFF;
@@ -37,18 +49,15 @@ header nav a, header nav span {
 section {
     margin: 0px 30px 0px 30px;
     padding: 10px;
-    border: 1px dotted #D8BFD8;
+    border: 1px dotted #1B6FB0;
     font-family: 'Oswald', sans-seriff;
 }
 
 /* Site heading block style */
-.heading {
-    display: inline;
-}
-
 .heading2 {
     display: inline;
     margin-left: 30px;
+    color: #0A4878;
 }
 
 #topthings {
@@ -94,5 +103,10 @@ footer {
 }
 
 #nodestats {
+    display: inline;
+    color: #2F6188;
+}
+
+#approveform {
     display: inline;
 }
