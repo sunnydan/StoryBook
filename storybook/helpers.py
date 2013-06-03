@@ -15,11 +15,11 @@ def findNode(nodeid):
 2. If the user already has a corresponding properties object, return that.
 3. If the user does not already have a corresponding properties object, make one, then return that.
 '''
-def findProperties(User):
+def findProperties(user):
     properties = None
-    if User.is_authenticated(): 
+    if user.is_authenticated(): 
         try:
-            properties = Properties.objects.all().get(user = findUser(User))
+            properties = Properties.objects.all().get(user=findUser(user))
         except ObjectDoesNotExist:
             properties = Properties()
             properties.user = findUser(user)
