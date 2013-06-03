@@ -30,7 +30,7 @@ def node(request, nodeid):
     if len(nextnodes)>2:
         nextnode3 = nextnodes[2]
     approved_already = False
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         properties = findProperties(request.user)
         if properties.already_approved_nodes.all().filter(id = nodeid):
             approved_already = True
