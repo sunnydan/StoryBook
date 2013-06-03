@@ -15,7 +15,7 @@ class Node(models.Model):
 class Properties(models.Model):
     user = models.OneToOneField(User)
     #avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
-    already_voted_nodes = models.ManyToManyField(Node)    
+    already_approved_nodes = models.ManyToManyField(Node)    
  
     def __unicode__(self):
         return str(self.user.username)

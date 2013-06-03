@@ -18,10 +18,10 @@
 <p id="nodestats">
 Author: {{ node.author }} | Points: {{ node.points }}
 {% if user.is_authenticated %}
-{% if not voted_already %}
-<form id="voteform" action="/vote:{{ node.id }}/" method="POST"> 
+{% if not approved_already %}
+<form id="approveform" action="/approve:{{ node.id }}/" method="POST"> 
     {% csrf_token %}
-    <input type="submit" value="vote">
+    <input type="submit" value="approve">
 </form>
 {% endif %}
 {% endif %}
