@@ -6,8 +6,10 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 
 def findNode(nodeid):
-    node = None
-    node = Node.objects.all().get(id=nodeid)
+    try:
+        node = Node.objects.all().get(id=nodeid)
+    except ObjectDoesNotExist:
+        return None
     return node
 
 '''def findProperties(User): 
@@ -32,3 +34,6 @@ def findUser(requestuser):
 
 def goHome():
     return HttpResponseRedirect('/')
+
+def go404():
+    return HttpResponseRedirect('/node;404/')

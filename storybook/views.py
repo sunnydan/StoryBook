@@ -19,6 +19,8 @@ def home(request):
 
 def node(request, nodeid):
     node = findNode(nodeid)
+    if not node:
+        return go404()
     nextnodes = Node.objects.all().filter(parent=node)
     nextnode1 = None
     nextnode2 = None
@@ -88,5 +90,5 @@ def approvenode(request, nodeid):
     else:     
         return goHome()
 
-def 404node(request):
+def node404(request):
     return render_to_response("404node.html", context_instance=RequestContext(request))
