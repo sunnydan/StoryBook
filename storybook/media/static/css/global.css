@@ -54,6 +54,11 @@ section {
 }
 
 /* Site heading block style */
+.heading {
+    display: inline;
+    color: #0A4878;
+}
+
 .heading2 {
     display: inline;
     margin-left: 30px;

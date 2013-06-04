@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{ node.action }}{% endblock %}
 {% block topthings %}
+<div id="topthings">
 {% if node.parent %}
 <a id="previous" href="/node:{{ node.parent.id }}/">prev</a>
 <h1 class="heading">{{ node.action }}</h1>
 {% else %}
 <h1 class="heading2">{{ node.action }}</h1>
 {% endif %}
+</div>
 {% endblock %}
 {% block content %}
 <!--TEMPLATE: node.html -->
