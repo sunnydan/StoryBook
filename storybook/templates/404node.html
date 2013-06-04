@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Don't find a page{% endblock %}
+{% block topthings %}
+<div id="topthings">
+    <a id="previous" href="/">prev</a>
+    <h1 class="heading">Don't find a page</h1>
+</div>
+{% endblock %}
+{% block content %}
+<!--TEMPLATE: 404node.html -->
+<section>
+<div id="storyDescription">
+<p>
+You search high and low, in every nook and cranny, and in four hundred and four different addresses but the page you are looking for simply does not exist. You should probably just go home.
+</div>
+<hr/>
+<div id="nodestats">
+Author: dhilla | Points: 404
+<button id="approveform">Approve</button>
+</div>
+<hr/>
+<p style="color: #2F6188; display: inline;">
+What do you want to do next?
+</p>
+<ul id="storyList">
+    <li><a href="/">Go Home</a></li>
+    <li><a href="bringvictory.com">Call Rick</a></li>
+    <li><a href="heyyeyaaeyaaaeyaeyaa.com">Sing that song</a></li>
+</ul>
+</section>
+<!--ENDTEMPLATE-->
+{% endblock %}
