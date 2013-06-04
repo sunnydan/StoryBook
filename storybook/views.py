@@ -87,3 +87,6 @@ def approvenode(request, nodeid):
             return HttpResponseRedirect("/node:"+str(node.id)+"/")
     else:     
         return goHome()
+
+def 404node(request):
+    return render_to_response("404node.html", context_instance=RequestContext(request))

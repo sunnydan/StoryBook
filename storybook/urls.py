@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     url(r'^submitnode:(\d+)/$', submitnode),
     url(r'^approve:(\d+)/$', approvenode),
 
+    url(r'^node;404/$', 404node),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
