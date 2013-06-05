@@ -1,40 +1,35 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>{% block title %}Our Storybook{% endblock %}</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <link rel="stylesheet" href="/media/static/css/global.css"/>
-</head>
-
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <a href="/">Home</a>
-            {% if user.is_authenticated %}
+      <nav>
+        <a href="/">Home</a>
+          {% if user.is_authenticated %}
             <a href="/logout/">Logout</a>
             <a href="/accounts/profile/">{{user.username}}</a>
-            {% else %}
+          {% else %}
             <a href="/login">Login</a>
-            {% endif %}
-        </nav>
-    <h1>Our Storybook</h1>
-    </header>
-    
+          {% endif %}
+      </nav>
+      <h1>Our Storybook</h1>
+    </header>  
     {% block topthings %}
-    {% endblock %}
-    
+    {% endblock %} 
     <div class="row-fluid">
-        {% block content %}
-        {% endblock %}
-    </div>
-    
+      {% block content %}
+      {% endblock %}
+    </div>  
     <footer>
-        {% block footer %}
-        {% endblock %}
-        <a id="djangoIcon" href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" border="0" alt="Made with Django!" title="Made with Django!" /></a>
+      {% block footer %}
+      {% endblock %}
+      <a id="djangoIcon" href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" border="0" alt="Made with Django!" title="Made with Django!" /></a>
     </footer>    
-</body>
+  </body>
 </html>
 <!--This website made by: John Lillis, Daniel Hilla, and Alan Elkner. With help from Jeff Elkner, Chris Hedrick, and Matt-->

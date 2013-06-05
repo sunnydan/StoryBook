@@ -1,15 +1,15 @@
 {% extends "blank.html" %}
 {% block content %}
-<!--TEMPLATE: writethenextpart.html-->
-{% if user.is_authenticated %}
+  <!--TEMPLATE: writethenextpart.html-->
+  {% if user.is_authenticated %}
     <li>
-    <form id="actionform" action="/writenextnode:{{ node.id }}/" method="get">
-    <input type="hidden" name="nodeid" value="{{node.id}}">
-    <input type="submit" value="Write the next part of the story here!"></p>
-    </form>
+      <form id="actionform" action="/writenextnode:{{ node.id }}/" method="get">
+        <input type="hidden" name="nodeid" value="{{node.id}}">
+        <input type="submit" value="Write the next part of the story here!">
+      </form>
     </li>
-{% else %}
+  {% else %}
     <li><a href="/login/">Log in</a> to write the next part of the story here!</li>
-{% endif %}
-<!--ENDTEMPLATE-->
+  {% endif %}
+  <!--ENDTEMPLATE-->
 {% endblock %}

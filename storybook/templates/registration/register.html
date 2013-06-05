@@ -1,35 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Register - ourstorybook{% endblock %}
-
 {% block content %}
-<div class="offset3 span6"/>
-
-<form action="" method="post">{% csrf_token %}
-    <legend>Register</legend>
-    <fieldset>
+  <div class="offset3 span6"/>
+    <form action="" method="post">{% csrf_token %}
+      <legend>Register</legend>
+      <fieldset>
         {% for field in form %}
-        <div class="control-group {% if field.errors %}error{% endif %}">
+          <div class="control-group {% if field.errors %}error{% endif %}">
             <label class="control-label">{{ field.label }}</label> 
             <div class="controls">{{ field }}
-                {% if field.errors %}
+              {% if field.errors %}
                 <div class="alert alert-error">
-                    <strong>{% for error in field.errors %}{{ error }}{% endfor %}</strong>
+                  <strong>{% for error in field.errors %}{{ error }}{% endfor %}</strong>
                 </div>
-                {% else %}
-                    {% if field.help_text %}
-                    <p class="help-block"><small>{{ field.help_text }}</small></p>
-                    {% endif %}
+              {% else %}
+                {% if field.help_text %}
+                  <p class="help-block"><small>{{ field.help_text }}</small></p>
                 {% endif %}
+              {% endif %}
             </div>
-        </div>
+          </div>
         {% endfor %}
-    </fieldset>
-
-    <div class="form-actions">
+      </fieldset>
+      <div class="form-actions">
         <input class="btn btn-primary" type="submit" value="Submit"/>
         <a class="btn btn-link" href="/login/">Click here to login.</a>
-    </div>
-</form>
-
-</div>
+      </div>
+    </form>
+  </div>
 {% endblock %}

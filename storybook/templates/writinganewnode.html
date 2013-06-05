@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block title %}New Node{% endblock %}
 {% block content %}
-<!--TEMPLATE: writinganewnode.html -->
-{% if user.is_authenticated %}
+  <!--TEMPLATE: writinganewnode.html -->
+  {% if user.is_authenticated %}
     <h1 class="heading">Write the next part of the story!</h1>
     <section>
-        {{ form.media }}
-        <form action="/submitnode:{{ parentid }}/" method="post">
+      {{ form.media }}
+      <form action="/submitnode:{{ parentid }}/" method="post">
         {% csrf_token %}
         {{ form }}
         <input type='submit' value='Submit'>
-        </form>
+      </form>
     </section>
-{% endif %}
-<!--ENDTEMPLATE-->
+  {% endif %}
+  <!--ENDTEMPLATE-->
 {% endblock %}

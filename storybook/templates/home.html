@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Main Page{% endblock %}
 {% block topthings %}
-<div id="topthings">
+  <div id="topthings">
     <h1 class="heading2">List Of Stories</h1>
-</div>
+  </div>
 {% endblock %}
 {% block content %}
-<!--TEMPLATE: home.html -->
-{% if rootnodes %}
-<section>
-<ul id="storyList">
-{% for node in rootnodes %}
-    <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
-{% endfor %}
-</ul>
-{% if user.is_staff %}
-    <form id="actionform" action="/writenextnode:0/" method="get">
-    <input type="hidden" name="nodeid" value="0">
-    <input type="submit" value="Create new root node">
-    </form>
-{% endif %}
-</section>
-{% endif %}
-<!--ENDTEMPLATE-->
+  <!--TEMPLATE: home.html -->
+  {% if rootnodes %}
+    <section>
+      <ul id="storyList">
+        {% for node in rootnodes %}
+          <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
+        {% endfor %}
+      </ul>
+      {% if user.is_staff %}
+        <form id="actionform" action="/writenextnode:0/" method="get">
+          <input type="hidden" name="nodeid" value="0">
+          <input type="submit" value="Create new root node">
+        </form>
+      {% endif %}
+    </section>
+  {% endif %}
+  <!--ENDTEMPLATE-->
 {% endblock %}

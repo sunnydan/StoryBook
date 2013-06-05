@@ -1,22 +1,22 @@
 {% extends "blank.html" %}
 {% block content %}
-<!--TEMPLATE: nextnodes.html-->
-<ul id="storyList">
-{% if nextnode1 %}
-    <li><a href="/node:{{nextnode1.id}}">{{nextnode1.action}}</a></li>
-{% else %}
-    {% include "writethenextpart.html" %}
-{% endif %}
-{% if nextnode2 %}
-    <li><a href="/node:{{nextnode2.id}}">{{nextnode2.action}}</a></li>
-{% else %}
-    {% include "writethenextpart.html" %}
-{% endif %}
-{% if nextnode3 %}
-    <li><a href="/node:{{nextnode3.id}}">{{nextnode3.action}}</a></li>
-{% else %}
-    {% include "writethenextpart.html" %}
-{% endif %}
-</ul>
-<!--ENDTEMPLATE-->
+  <!--TEMPLATE: nextnodes.html-->
+  <ul id="storyList">
+    {% if nextnode1 %}
+      <li><a href="/node:{{nextnode1.id}}">{{nextnode1.action}}</a></li>
+    {% else %}
+      {% include "writethenextpart.html" %}
+    {% endif %}
+    {% if nextnode2 %}
+      <li><a href="/node:{{nextnode2.id}}">{{nextnode2.action}}</a></li>
+    {% else %}
+      {% include "writethenextpart.html" %}
+    {% endif %}
+    {% if nextnode3 %}
+      <li><a href="/node:{{nextnode3.id}}">{{nextnode3.action}}</a></li>
+    {% else %}
+      {% include "writethenextpart.html" %}
+    {% endif %}
+  </ul>
+  <!--ENDTEMPLATE-->
 {% endblock %}
