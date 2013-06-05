@@ -54,27 +54,28 @@ def profile(request):
 
 def writenextnode(request, parentid):
     if request.user.is_authenticated() and 'nodeid' in request.GET and request.GET['nodeid'] == parentid:
-        form = NodeForm
-        return render_to_response("writinganewnode.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
-    else:
-        return goHome()
+        if (not parentid and user.is_staff()) or parentid:
+            form = NodeForm
+            return render_to_response("writinganewnode.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
+    return goHome()
 
 def submitnode(request, parentid):
     if request.user.is_authenticated() and request.method == "POST":
-        form = NodeForm(request.POST)
-        if form.is_valid():
-            node = Node()
-            node.parent = Node.objects.all().get(id=parentid)
-            node.author = request.user
-            node.action = form.cleaned_data['action']
-            node.text = form.cleaned_data['text']            
-            node.points = 0
-            node.save()
-            return HttpResponseRedirect("/node:"+str(node.id)+"/")
-        else:
-            return goHome()            
-    else:
-        return goHome() 
+        if (not parentid and user.is_staff()) or parentid:    
+            form = NodeForm(request.POST)
+            if form.is_valid():
+                node = Node()
+                if int(parentid):
+                    node.parent = Node.objects.all().get(id=parentid)
+                else:
+                    node.parent = None
+                node.author = request.user
+                node.action = form.cleaned_data['action']
+                node.text = form.cleaned_data['text']            
+                node.points = 0
+                node.save()
+                return HttpResponseRedirect("/node:"+str(node.id)+"/")
+    return goHome() 
 
 def approvenode(request, nodeid):
     if request.user.is_authenticated() and request.method == "POST":

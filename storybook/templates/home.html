@@ -14,6 +14,12 @@
     <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
 {% endfor %}
 </ul>
+{% if user.is_staff %}
+    <form id="actionform" action="/writenextnode:0/" method="get">
+    <input type="hidden" name="nodeid" value="0">
+    <input type="submit" value="Create new root node">
+    </form>
+{% endif %}
 </section>
 {% endif %}
 <!--ENDTEMPLATE-->
