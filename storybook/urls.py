@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^writenextnode:(\d+)/$', writenextnode),
     url(r'^submitnode:(\d+)/$', submitnode),
     url(r'^approve:(\d+)/$', approvenode),
+    url(r'^deletebranch:(\d+)/$', deletebranch),
 
     url(r'^node;404/$', node404),
 

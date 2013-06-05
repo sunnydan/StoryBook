@@ -12,6 +12,12 @@ class Node(models.Model):
     def __unicode__(self):
         return str(self.action)
 
+    def kill_branch(self):
+        offspring = Node.objects.all().filter(parent=self)
+        for node in offspring:
+            node.kill_branch()
+        self.delete()
+
 class Properties(models.Model):
     user = models.OneToOneField(User)
     #avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 

@@ -91,5 +91,17 @@ def approvenode(request, nodeid):
     else:     
         return goHome()
 
+def deletebranch(request, nodeid):
+    if request.user.is_staff:
+        node = findNode(nodeid)
+        if node.parent:
+            parentNode = node.parent
+            node.kill_branch()
+            return HttpResponseRedirect("/node:"+str(parentNode.id)+"/")
+        else:
+            node.kill_branch()
+            return HttpResponseRedirect("/")
+    return goHome()
+
 def node404(request):
     return render_to_response("404node.html", context_instance=RequestContext(request))
