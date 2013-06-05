@@ -8,6 +8,12 @@
     {% else %}
       <h1 class="heading2">{{ node.action }}</h1>
     {% endif %}
+    {% if node_is_users or user.is_staff %}
+      <form style="display: inline-block" action="/editnode:{{ node.id }}/" method="get">
+        <input type="hidden" name="nodeid" value="{{node.id}}">
+        <input type="submit" value="Edit Node">
+      </form>
+    {% endif %}
     {% if user.is_staff %}
       <a href="/deletebranch:{{ node.id }}/">
         <button onclick="return confirm('Are you sure you would like to delete this branch? This node and every node following it will be deleted.');">Delete Branch</button>

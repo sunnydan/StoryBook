@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}New Node{% endblock %}
+{% block title %}Edit Node{% endblock %}
 {% block content %}
-  <!--TEMPLATE: writinganewnode.html -->
+  <!--TEMPLATE: editinganode.html -->
   {% if user.is_authenticated %}
-    <h1 class="heading">Write the next part of the story!</h1>
+    <h1 class="heading">Editing</h1>
     <section>
       {{ form.media }}
-      <form action="/submitnewnode:{{ parentid }}/" method="post">
+      <form action="/submiteditednode:{{ node.id }}/" method="post">
         {% csrf_token %}
         {{ form }}
         <input type='submit' value='Submit'>
