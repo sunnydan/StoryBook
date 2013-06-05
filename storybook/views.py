@@ -78,6 +78,8 @@ def submiteditednode(request, nodeid):
                 node.text = form.cleaned_data['text']
                 node.save()
                 return HttpResponseRedirect("/node:"+str(node.id)+"/") 
+            else:
+                return render_to_response("editinganode.html", {'form': form, 'node': node}, context_instance=RequestContext(request))
     return goHome()
 
 def writenextnode(request, parentid):
@@ -103,6 +105,8 @@ def submitnewnode(request, parentid):
                 node.points = 0
                 node.save()
                 return HttpResponseRedirect("/node:"+str(node.id)+"/")
+            else:
+                return render_to_response("writinganewnode.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome() 
 
 def approvenode(request, nodeid):
