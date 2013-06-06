@@ -1,0 +1,20 @@
+{% extends "blank.html" %}
+{% block content %}
+  <!--TEMPLATE: fontscript.html-->
+  <script>
+    function wordNumber (element) {
+      var text = element.innerText || element.textContent;
+      return text.split(' ').length;
+      }
+    var font_multiplier = 500;
+    var min_font_multiplier = 100;
+    var fifteen_words = wordNumber(document.getElementById('storyDescription'))/15;
+    font_multiplier = font_multiplier - fifteen_words*100;
+    if (font_multiplier < min_font_multiplier)
+      {
+      font_multiplier = min_font_multiplier;
+      }
+    document.getElementById("storyDescription").style.fontSize=font_multiplier.toString()+'%';
+  </script>
+  <!--ENDTEMPLATE-->
+{% endblock %}
