@@ -23,7 +23,7 @@ header {
 }
 
 #h_left{
-    padding-top: 50px;
+    padding-top: 25px;
     padding-left: 20px;
     margin-bottom: -130px;
     float: left;
@@ -34,8 +34,6 @@ header {
 
 #h_center {
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
     text-align: center;
     display: inline-block;
     color: black;
@@ -44,7 +42,7 @@ header {
 #h_right {
     padding-top: 20px;
     padding-right: 20px;
-    margin-top: -130px;
+    margin-top: -110px;
     text-align: right;
     color: #FFFFFF;
     display: inline-block;
