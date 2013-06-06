@@ -25,13 +25,10 @@ def node(request, nodeid):
     nextnodes = Node.objects.all().filter(parent=node)
     nextnode1 = None
     nextnode2 = None
-    nextnode3 = None
     if len(nextnodes)>0:
         nextnode1 = nextnodes[0]
     if len(nextnodes)>1:
         nextnode2 = nextnodes[1]
-    if len(nextnodes)>2:
-        nextnode3 = nextnodes[2]
     approved_already = False
     if request.user.is_authenticated():
         properties = findProperties(request.user)
@@ -45,7 +42,6 @@ def node(request, nodeid):
         'node_is_users': node_is_users,
         'nextnode1': nextnode1, 
         'nextnode2': nextnode2, 
-        'nextnode3': nextnode3,
         'approved_already': approved_already,
         }
     return render_to_response("node.html", context, context_instance=RequestContext(request))

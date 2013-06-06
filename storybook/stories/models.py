@@ -6,6 +6,7 @@ class Node(models.Model):
     author = models.ForeignKey(User)
     lastedited = models.DateTimeField(auto_now=True)
     action = models.CharField(max_length=30)
+    illustration = models.ImageField(upload_to='illustrations/%Y/%m/%d')
     text = models.TextField()
     points = models.IntegerField()
 
@@ -20,7 +21,7 @@ class Node(models.Model):
 
 class Properties(models.Model):
     user = models.OneToOneField(User)
-    #avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
+    avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
     already_approved_nodes = models.ManyToManyField(Node)    
  
     def __unicode__(self):
