@@ -7,13 +7,14 @@
 {% endblock %}
 {% block content %}
   <!--TEMPLATE: home.html -->
-  {% if rootnodes %}
     <section>
-      <ul id="storyList">
-        {% for node in rootnodes %}
-          <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
-        {% endfor %}
-      </ul>
+      {% if rootnodes %}
+        <ul id="storyList">
+          {% for node in rootnodes %}
+            <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
       {% if user.is_staff %}
         <form id="actionform" action="/writenextnode:0/" method="get">
           <input type="hidden" name="nodeid" value="0">
@@ -21,6 +22,5 @@
         </form>
       {% endif %}
     </section>
-  {% endif %}
   <!--ENDTEMPLATE-->
 {% endblock %}
