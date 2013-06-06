@@ -10,6 +10,21 @@
   {% if user.is_authenticated %}
     <section>
       <h2>{{user.username}}</h2>
+      <p>Total Points: {{ properties.getPoints }}</p>
+      {% if properties.getNodes %}
+      <hr>
+      <ul>
+        {% for node in properties.getNodes %}
+          <li>
+            <a href="/node:{{ node.id }}/"><strong>{{ node.action }}</strong></a>
+            <ul>
+              <li>Last Edited: {{ node.lastedited }}</li>
+              <li>Points: {{ node.points }}</li>
+            </ul> 
+          </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </section>
   {% endif %}
   <!--ENDTEMPLATE-->

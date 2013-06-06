@@ -52,9 +52,11 @@ def node(request, nodeid):
  
 def profile(request):
     if request.user.is_authenticated():
-        return render_to_response("profile.html", context_instance=RequestContext(request))
-    else:
-        return goHome()
+        properties = findProperties(request.user)
+        context = {
+        'properties': properties,
+        } 
+        return render_to_response("profile.html", context, context_instance=RequestContext(request))
 
 def editnode(request, nodeid):
     node = findNode(nodeid)

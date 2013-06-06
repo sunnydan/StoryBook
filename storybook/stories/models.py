@@ -25,3 +25,14 @@ class Properties(models.Model):
  
     def __unicode__(self):
         return str(self.user.username)
+
+    def getPoints(self):
+        points = 0
+        nodes = Node.objects.all().filter(author=self.user)
+        for node in nodes:
+            points = points + node.points
+        return points
+
+    def getNodes(self):
+        return Node.objects.all().filter(author=self.user)
+        
