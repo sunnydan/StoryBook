@@ -157,5 +157,7 @@ REGISTRATION_TOKEN = ""
 TINYMCE_JS_URL = '/media/static/tinymce/jscripts/tiny_mce/tiny_mce_src.js'
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",     
+    'theme_advanced_disable': "image",
+    'skin': "o2k7",
 }
 TINYMCE_SPELLCHECKER = True
