@@ -8,16 +8,23 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav id="h_left">
         <a href="/">Home</a>
-          {% if user.is_authenticated %}
-            <a href="/logout/">Logout</a>
-            <a href="/accounts/profile/">{{user.username}}</a>
-          {% else %}
-            <a href="/login">Login</a>
-          {% endif %}
+        {% if user.is_authenticated %}
+          <a href="/logout/">Logout</a>
+          <a href="/accounts/profile/">{{user.username}}</a>
+        {% else %}
+          <a href="/login">Login</a>
+        {% endif %}
       </nav>
-      <h1>Our Storybook</h1>
+      <div id="h_center">
+        {% if user.is_staff %}
+          <h1>Staff Mode</h1>
+        {% endif %}
+      </div>
+      <div id="h_right">
+        <h1>Our Storybook</h1>
+      </div>
     </header>  
     {% block topthings %}
     {% endblock %} 
