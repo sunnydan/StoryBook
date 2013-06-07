@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from forms import PageForm
-from stories.models import *
+from stories.models import Page, Properties
 from registrationviews import *
 from django.http import HttpResponseRedirect
 from helpers import *
@@ -17,7 +17,7 @@ def home(request):
     rootPages = Page.objects.all().filter(parent=None)
     return render_to_response("home.html", {'rootPages': rootPages}, context_instance=RequestContext(request))
 
-def Page(request, Pageid):
+def page(request, Pageid):
     Page = findPage(Pageid)
     if not Page:
         return go404()
