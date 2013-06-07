@@ -16,7 +16,7 @@
         </ul>
       {% endif %}
       {% if user.is_staff %}
-        <form id="short_descform" short_desc="/writenextpage:0/" method="get">
+        <form id="short_descform" action="/writenextpage:0/" method="get">
           <input type="hidden" name="pageid" value="0">
           <input type="submit" value="Start New Story">
         </form>

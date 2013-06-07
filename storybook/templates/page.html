@@ -9,7 +9,7 @@
       <h1 class="heading2">{{ page.short_desc }}</h1>
     {% endif %}
     {% if page_is_users or user.is_staff %}
-      <form style="display: inline-block" short_desc="/editpage:{{ page.id }}/" method="get">
+      <form style="display: inline-block" action="/editpage:{{ page.id }}/" method="get">
         <input type="hidden" name="pageid" value="{{page.id}}">
         <input type="submit" value="Edit Page">
       </form>
