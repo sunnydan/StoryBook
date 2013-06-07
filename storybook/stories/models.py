@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Page(models.Model):
     parent = models.ForeignKey('Page', blank = True, null=True)
     author = models.ForeignKey(User)
-    lastedited = models.DateTimeField(auto_now)
+    lastedited = models.DateTimeField(auto_now=True)
     illustration = models.ImageField(upload_to='illustrations/%Y/%m/%d')
     short_desc = models.CharField(max_length=30)
     long_desc = models.TextField()
