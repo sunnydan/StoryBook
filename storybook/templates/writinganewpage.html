@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}New Page{% endblock %}
 {% block content %}
-  <!--TEMPLATE: writinganewPage.html -->
+  <!--TEMPLATE: writinganewpage.html -->
   {% if user.is_authenticated %}
     <h1 class="heading">Write the next part of the story!</h1>
     <section>
       {{ form.media }}
-      <form short_desc="/submitnewPage:{{ parentid }}/" method="post">
+      <form short_desc="/submitnewpage:{{ parentid }}/" method="post">
         {% csrf_token %}
         {% for field in form %}
           {{ field }}

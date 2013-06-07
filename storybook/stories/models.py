@@ -14,14 +14,14 @@ class Page(models.Model):
 
     def kill_branch(self):
         offspring = Page.objects.all().filter(parent=self)
-        for Page in offspring:
-            Page.kill_branch()
+        for page in offspring:
+            page.kill_branch()
         self.delete()
 
 class Properties(models.Model):
     user = models.OneToOneField(User)
     avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
-    already_approved_Pages = models.ManyToManyField(Page)    
+    already_approved_pages = models.ManyToManyField(Page)    
  
     def __unicode__(self):
         return str(self.user.username)

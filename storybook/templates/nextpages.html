@@ -1,14 +1,14 @@
 {% extends "blank.html" %}
 {% block content %}
-  <!--TEMPLATE: nextPages.html-->
+  <!--TEMPLATE: nextpages.html-->
   <ul id="storyList">
-    {% if nextPage1 %}
-      <li><a href="/Page:{{nextPage1.id}}">{{nextPage1.short_desc}}</a></li>
+    {% if nextpage1 %}
+      <li><a href="/page:{{nextpage1.id}}">{{nextpage1.short_desc}}</a></li>
     {% endif %}
-    {% if nextPage2 %}
-      <li><a href="/Page:{{nextPage2.id}}">{{nextPage2.short_desc}}</a></li>
+    {% if nextpage2 %}
+      <li><a href="/page:{{nextpage2.id}}">{{nextpage2.short_desc}}</a></li>
     {% endif %}
-    {% if not nextPage1 or not nextPage2 %}
+    {% if not nextpage1 or not nextpage2 %}
       {% include "writethenextpart.html" %}
     {% endif %}
   </ul>

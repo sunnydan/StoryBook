@@ -5,9 +5,9 @@ from stories.models import *
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 
-def findPage(Pageid):
+def findPage(pageid):
     try:
-        page = Page.objects.all().get(id=Pageid)
+        page = Page.objects.all().get(id=pageid)
     except ObjectDoesNotExist:
         return None
     return page

@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from forms import PageForm
+from forms import pageForm
 from stories.models import Page, Properties
 from registrationviews import *
 from django.http import HttpResponseRedirect
@@ -14,11 +14,11 @@ from helpers import *
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-    rootPages = Page.objects.all().filter(parent=None)
-    return render_to_response("home.html", {'rootPages': rootPages}, context_instance=RequestContext(request))
+    rootpages = Page.objects.all().filter(parent=None)
+    return render_to_response("home.html", {'rootpages': rootpages}, context_instance=RequestContext(request))
 
-def page(request, Pageid):
-    page = findPage(Pageid)
+def page(request, pageid):
+    page = findPage(pageid)
     if not page:
         return go404()
     page_is_users = False
@@ -30,10 +30,10 @@ def page(request, Pageid):
     if len(nextpages)>1:
         nextpage2 = nextpages[1]
     context = {
-        'Page': page,
-        'Page_is_users': page_is_users,
-        'nextPage1': nextpage1, 
-        'nextPage2': nextpage2, 
+        'page': page,
+        'page_is_users': page_is_users,
+        'nextpage1': nextpage1, 
+        'nextpage2': nextpage2, 
         }
     return render_to_response("page.html", context, context_instance=RequestContext(request))
  
@@ -45,43 +45,43 @@ def profile(request):
         } 
         return render_to_response("profile.html", context, context_instance=RequestContext(request))
 
-def editpage(request, Pageid):
-    Page = findPage(Pageid)
-    if not Page:
+def editpage(request, pageid):
+    page = findPage(pageid)
+    if not page:
         return go404()
-    if request.user.is_staff or Page.author == findUser(request.user):
-        already_written = {'short_desc': Page.short_desc, 'text': Page.text}
-        form = PageForm(already_written)
-        return render_to_response("editingapage.html", {'form': form, 'Page': Page}, context_instance=RequestContext(request))
+    if request.user.is_staff or page.author == findUser(request.user):
+        already_written = {'short_desc': page.short_desc, 'text': page.text}
+        form = pageForm(already_written)
+        return render_to_response("editingapage.html", {'form': form, 'page': page}, context_instance=RequestContext(request))
     return goHome()
 
-def submiteditedpage(request, Pageid):
+def submiteditedpage(request, pageid):
     if request.user.is_authenticated() and request.method == "POST":
-        if request.user.is_staff or Page.author == findUser(request.user):
-            Page = findPage(Pageid)
-            if not Page:
-                return go404()
-            form = PageForm(request.POST)
+        page = findPage(pageid)
+        if not page:
+            return go404()
+        if request.user.is_staff or page.author == findUser(request.user):
+            form = pageForm(request.POST, request.FILES)
             if form.is_valid():
-                Page.short_desc = form.cleaned_data['short_desc']
-                Page.text = form.cleaned_data['text']
-                Page.save()
-                return HttpResponseRedirect("/page:"+str(Page.id)+"/") 
+                page.short_desc = form.cleaned_data['short_desc']
+                page.text = form.cleaned_data['text']
+                page.save()
+                return HttpResponseRedirect("/page:"+str(page.id)+"/") 
             else:
-                return render_to_response("editingapage.html", {'form': form, 'Page': Page}, context_instance=RequestContext(request))
+                return render_to_response("editingapage.html", {'form': form, 'page': page}, context_instance=RequestContext(request))
     return goHome()
 
 def writenextpage(request, parentid):
-    if request.user.is_authenticated() and 'Pageid' in request.GET and request.GET['Pageid'] == parentid:
+    if request.user.is_authenticated() and 'pageid' in request.GET and request.GET['pageid'] == parentid:
         if (not parentid and user.is_staff()) or parentid:
-            form = PageForm
+            form = pageForm
             return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome()
 
 def submitnewpage(request, parentid):
     if request.user.is_authenticated() and request.method == "POST":
         if (not parentid and user.is_staff()) or parentid:    
-            form = PageForm(request.POST)
+            form = pageForm(request.POST, request.FILES)
             if form.is_valid():
                 page = Page()
                 if int(parentid):
@@ -93,34 +93,34 @@ def submitnewpage(request, parentid):
                 page.text = form.cleaned_data['text']            
                 page.points = 0
                 page.save()
-                return HttpResponseRedirect("/page:"+str(Page.id)+"/")
+                return HttpResponseRedirect("/page:"+str(page.id)+"/")
             else:
                 return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome() 
 
-def approvepage(request, Pageid):
+def approvepage(request, pageid):
     if request.user.is_authenticated() and request.method == "POST":
-        Page = findPage(Pageid)
+        page = findPage(pageid)
         properties = findProperties(request.user)
-        if not Page in properties.already_approved_Pages.all():
-            properties.already_approved_Pages.add(Page)
-            Page.points += 1
-            Page.save()
-            return HttpResponseRedirect("/page:"+str(Page.id)+"/")
+        if not page in properties.already_approved_pages.all():
+            properties.already_approved_pages.add(page)
+            page.points += 1
+            page.save()
+            return HttpResponseRedirect("/page:"+str(page.id)+"/")
         else:
-            return HttpResponseRedirect("/page:"+str(Page.id)+"/")
+            return HttpResponseRedirect("/page:"+str(page.id)+"/")
     else:     
         return goHome()
 
-def deletebranch(request, Pageid):
+def deletebranch(request, pageid):
     if request.user.is_staff:
-        Page = findPage(Pageid)
-        if Page.parent:
-            parentPage = Page.parent
-            Page.kill_branch()
-            return HttpResponseRedirect("/page:"+str(parentPage.id)+"/")
+        page = findPage(pageid)
+        if page.parent:
+            parentpage = page.parent
+            page.kill_branch()
+            return HttpResponseRedirect("/page:"+str(parentpage.id)+"/")
         else:
-            Page.kill_branch()
+            page.kill_branch()
             return HttpResponseRedirect("/")
     return goHome()
 

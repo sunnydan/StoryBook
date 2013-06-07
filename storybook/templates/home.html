@@ -8,16 +8,16 @@
 {% block content %}
   <!--TEMPLATE: home.html -->
     <section>
-      {% if rootPages %}
+      {% if rootpages %}
         <ul id="storyList">
-          {% for Page in rootPages %}
-            <li><a href="/Page:{{Page.id}}">{{Page.short_desc}}</a></li>
+          {% for page in rootpages %}
+            <li><a href="/page:{{page.id}}">{{page.short_desc}}</a></li>
           {% endfor %}
         </ul>
       {% endif %}
       {% if user.is_staff %}
-        <form id="short_descform" short_desc="/writenextPage:0/" method="get">
-          <input type="hidden" name="Pageid" value="0">
+        <form id="short_descform" short_desc="/writenextpage:0/" method="get">
+          <input type="hidden" name="pageid" value="0">
           <input type="submit" value="Start New Story">
         </form>
       {% endif %}
