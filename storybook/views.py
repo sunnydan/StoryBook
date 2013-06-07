@@ -64,6 +64,7 @@ def submiteditedpage(request, pageid):
             form = pageForm(request.POST, request.FILES)
             if form.is_valid():
                 page.short_desc = form.cleaned_data['short_desc']
+                page.illustration = request.FILES['illustration']
                 page.long_desc = form.cleaned_data['long_desc']
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/") 
@@ -90,6 +91,7 @@ def submitnewpage(request, parentid):
                     page.parent = None
                 page.author = request.user
                 page.short_desc = form.cleaned_data['short_desc']
+                page.illustration = request.FILES['illustration']
                 page.long_desc = form.cleaned_data['long_desc']            
                 page.points = 0
                 page.save()

@@ -6,7 +6,7 @@
     <h1 class="heading">Write the next part of the story!</h1>
     <section>
       {{ form.media }}
-      <form action="/submitnewpage:{{ parentid }}/" method="post">
+      <form enctype="multipart/form-data" action="/submitnewpage:{{ parentid }}/" method="post">
         {% csrf_token %}
         {% for field in form %}
           {{ field }}
