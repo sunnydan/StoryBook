@@ -16,7 +16,7 @@
       <ul>
         {% for Page in properties.getPages %}
           <li>
-            <a href="/Page:{{ Page.id }}/"><strong>{{ Page.action }}</strong></a>
+            <a href="/Page:{{ Page.id }}/"><strong>{{ Page.short_desc }}</strong></a>
             <ul>
               <li>Last Edited: {{ Page.lastedited }}</li>
               <li>Points: {{ Page.points }}</li>

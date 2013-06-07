@@ -11,12 +11,12 @@
       {% if rootPages %}
         <ul id="storyList">
           {% for Page in rootPages %}
-            <li><a href="/Page:{{Page.id}}">{{Page.action}}</a></li>
+            <li><a href="/Page:{{Page.id}}">{{Page.short_desc}}</a></li>
           {% endfor %}
         </ul>
       {% endif %}
       {% if user.is_staff %}
-        <form id="actionform" action="/writenextPage:0/" method="get">
+        <form id="short_descform" short_desc="/writenextPage:0/" method="get">
           <input type="hidden" name="Pageid" value="0">
           <input type="submit" value="Start New Story">
         </form>

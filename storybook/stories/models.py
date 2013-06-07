@@ -10,7 +10,7 @@ class Page(models.Model):
     long_desc = models.TextField()
 
     def __unicode__(self):
-        return str(self.action)
+        return str(self.short_desc)
 
     def kill_branch(self):
         offspring = Page.objects.all().filter(parent=self)

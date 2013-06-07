@@ -7,10 +7,10 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def findPage(Pageid):
     try:
-        Page = Page.objects.all().get(id=Pageid)
+        page = Page.objects.all().get(id=Pageid)
     except ObjectDoesNotExist:
         return None
-    return Page
+    return page
 
 '''def findProperties(User): 
 1. See if the client is logged in; if not, return None.
@@ -36,4 +36,4 @@ def goHome():
     return HttpResponseRedirect('/')
 
 def go404():
-    return HttpResponseRedirect('/Page;404/')
+    return HttpResponseRedirect('/page;404/')

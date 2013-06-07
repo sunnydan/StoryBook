@@ -3,13 +3,13 @@
   <!--TEMPLATE: nextPages.html-->
   <ul id="storyList">
     {% if nextPage1 %}
-      <li><a href="/Page:{{nextPage1.id}}">{{nextPage1.action}}</a></li>
+      <li><a href="/Page:{{nextPage1.id}}">{{nextPage1.short_desc}}</a></li>
     {% endif %}
     {% if nextPage2 %}
-      <li><a href="/Page:{{nextPage2.id}}">{{nextPage2.action}}</a></li>
+      <li><a href="/Page:{{nextPage2.id}}">{{nextPage2.short_desc}}</a></li>
     {% endif %}
     {% if not nextPage1 or not nextPage2 %}
-      {% include "next.html" %}
+      {% include "writethenextpart.html" %}
     {% endif %}
   </ul>
   <!--ENDTEMPLATE-->

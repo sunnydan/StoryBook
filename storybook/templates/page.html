@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}{{ Page.action }}{% endblock %}
+{% block title %}{{ Page.short_desc }}{% endblock %}
 {% block topthings %}
   <div id="topthings">
     {% if Page.parent %}
       <a id="previous" href="/Page:{{ Page.parent.id }}/">prev</a>
-      <h1 class="heading">{{ Page.action }}</h1>
+      <h1 class="heading">{{ Page.short_desc }}</h1>
     {% else %}
-      <h1 class="heading2">{{ Page.action }}</h1>
+      <h1 class="heading2">{{ Page.short_desc }}</h1>
     {% endif %}
     {% if Page_is_users or user.is_staff %}
-      <form style="display: inline-block" action="/editPage:{{ Page.id }}/" method="get">
+      <form style="display: inline-block" short_desc="/editPage:{{ Page.id }}/" method="get">
         <input type="hidden" name="Pageid" value="{{Page.id}}">
         <input type="submit" value="Edit Page">
       </form>
@@ -30,7 +30,7 @@
     {% include "fontscript.html" %}
     <hr/>
     <p style="color: #2F6188; display: inline;">What happens next?</p>
-    {% include "nextPages.html" %}
+    {% include "nextpages.html" %}
   </section>
   <!--ENDTEMPLATE-->
 {% endblock %}
