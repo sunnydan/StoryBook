@@ -8,17 +8,17 @@
 {% block content %}
   <!--TEMPLATE: home.html -->
     <section>
-      {% if rootnodes %}
+      {% if rootPages %}
         <ul id="storyList">
-          {% for node in rootnodes %}
-            <li><a href="/node:{{node.id}}">{{node.action}}</a></li>
+          {% for Page in rootPages %}
+            <li><a href="/Page:{{Page.id}}">{{Page.action}}</a></li>
           {% endfor %}
         </ul>
       {% endif %}
       {% if user.is_staff %}
-        <form id="actionform" action="/writenextnode:0/" method="get">
-          <input type="hidden" name="nodeid" value="0">
-          <input type="submit" value="Create new root node">
+        <form id="actionform" action="/writenextPage:0/" method="get">
+          <input type="hidden" name="Pageid" value="0">
+          <input type="submit" value="Create new root Page">
         </form>
       {% endif %}
     </section>

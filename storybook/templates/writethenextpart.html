@@ -3,8 +3,8 @@
   <!--TEMPLATE: writethenextpart.html-->
   {% if user.is_authenticated %}
     <li>
-      <form id="actionform" action="/writenextnode:{{ node.id }}/" method="get">
-        <input type="hidden" name="nodeid" value="{{node.id}}">
+      <form id="actionform" action="/writenextPage:{{ Page.id }}/" method="get">
+        <input type="hidden" name="Pageid" value="{{Page.id}}">
         <input type="submit" value="Write the next part of the story here!">
       </form>
     </li>

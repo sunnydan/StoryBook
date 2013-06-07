@@ -1,36 +1,36 @@
 {% extends "base.html" %}
-{% block title %}{{ node.action }}{% endblock %}
+{% block title %}{{ Page.action }}{% endblock %}
 {% block topthings %}
   <div id="topthings">
-    {% if node.parent %}
-      <a id="previous" href="/node:{{ node.parent.id }}/">prev</a>
-      <h1 class="heading">{{ node.action }}</h1>
+    {% if Page.parent %}
+      <a id="previous" href="/Page:{{ Page.parent.id }}/">prev</a>
+      <h1 class="heading">{{ Page.action }}</h1>
     {% else %}
-      <h1 class="heading2">{{ node.action }}</h1>
+      <h1 class="heading2">{{ Page.action }}</h1>
     {% endif %}
-    {% if node_is_users or user.is_staff %}
-      <form style="display: inline-block" action="/editnode:{{ node.id }}/" method="get">
-        <input type="hidden" name="nodeid" value="{{node.id}}">
-        <input type="submit" value="Edit Node">
+    {% if Page_is_users or user.is_staff %}
+      <form style="display: inline-block" action="/editPage:{{ Page.id }}/" method="get">
+        <input type="hidden" name="Pageid" value="{{Page.id}}">
+        <input type="submit" value="Edit Page">
       </form>
     {% endif %}
     {% if user.is_staff %}
-      <a href="/deletebranch:{{ node.id }}/">
-        <button onclick="return confirm('Are you sure you would like to delete this branch? This node and every node following it will be deleted.');">Delete Branch</button>
+      <a href="/deletebranch:{{ Page.id }}/">
+        <button onclick="return confirm('Are you sure you would like to delete this branch? This Page and every Page following it will be deleted.');">Delete Branch</button>
       </a>
     {% endif %}
   </div>
 {% endblock %}
 {% block content %}
-  <!--TEMPLATE: node.html -->
+  <!--TEMPLATE: Page.html -->
   <section>
     <div id="storyDescription">
-      {{ node.text|safe }}
+      {{ Page.text|safe }}
     </div>
     {% include "fontscript.html" %}
     <hr/>
     <p style="color: #2F6188; display: inline;">What happens next?</p>
-    {% include "nextnodes.html" %}
+    {% include "nextPages.html" %}
   </section>
   <!--ENDTEMPLATE-->
 {% endblock %}

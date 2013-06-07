@@ -5,12 +5,12 @@ from stories.models import *
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 
-def findNode(nodeid):
+def findPage(Pageid):
     try:
-        node = Node.objects.all().get(id=nodeid)
+        Page = Page.objects.all().get(id=Pageid)
     except ObjectDoesNotExist:
         return None
-    return node
+    return Page
 
 '''def findProperties(User): 
 1. See if the client is logged in; if not, return None.
@@ -36,4 +36,4 @@ def goHome():
     return HttpResponseRedirect('/')
 
 def go404():
-    return HttpResponseRedirect('/node;404/')
+    return HttpResponseRedirect('/Page;404/')

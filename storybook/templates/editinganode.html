@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Edit Node{% endblock %}
+{% block title %}Edit Page{% endblock %}
 {% block content %}
-  <!--TEMPLATE: editinganode.html -->
+  <!--TEMPLATE: editingaPage.html -->
   {% if user.is_authenticated %}
     <h1 class="heading">Editing</h1>
     <section>
       {{ form.media }}
-      <form action="/submiteditednode:{{ node.id }}/" method="post">
+      <form action="/submiteditedPage:{{ Page.id }}/" method="post">
         {% csrf_token %}
         {% for field in form %}
           {{ field }}

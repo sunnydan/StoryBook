@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from forms import NodeForm
+from forms import PageForm
 from stories.models import *
 from registrationviews import *
 from django.http import HttpResponseRedirect
@@ -14,37 +14,37 @@ from helpers import *
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-    rootnodes = Node.objects.all().filter(parent=None)
-    return render_to_response("home.html", {'rootnodes': rootnodes}, context_instance=RequestContext(request))
+    rootPages = Page.objects.all().filter(parent=None)
+    return render_to_response("home.html", {'rootPages': rootPages}, context_instance=RequestContext(request))
 
-def node(request, nodeid):
-    node = findNode(nodeid)
-    if not node:
+def Page(request, Pageid):
+    Page = findPage(Pageid)
+    if not Page:
         return go404()
-    node_is_users = False
-    nextnodes = Node.objects.all().filter(parent=node)
-    nextnode1 = None
-    nextnode2 = None
-    if len(nextnodes)>0:
-        nextnode1 = nextnodes[0]
-    if len(nextnodes)>1:
-        nextnode2 = nextnodes[1]
+    Page_is_users = False
+    nextPages = Page.objects.all().filter(parent=Page)
+    nextPage1 = None
+    nextPage2 = None
+    if len(nextPages)>0:
+        nextPage1 = nextPages[0]
+    if len(nextPages)>1:
+        nextPage2 = nextPages[1]
     approved_already = False
     if request.user.is_authenticated():
         properties = findProperties(request.user)
-        if node.author == findUser(request.user):
-            node_is_users = True
-        if properties.already_approved_nodes.all().filter(id = nodeid):
+        if Page.author == findUser(request.user):
+            Page_is_users = True
+        if properties.already_approved_Pages.all().filter(id = Pageid):
             approved_already = True
-    print(node.points)
+    print(Page.points)
     context = {
-        'node': node,
-        'node_is_users': node_is_users,
-        'nextnode1': nextnode1, 
-        'nextnode2': nextnode2, 
+        'Page': Page,
+        'Page_is_users': Page_is_users,
+        'nextPage1': nextPage1, 
+        'nextPage2': nextPage2, 
         'approved_already': approved_already,
         }
-    return render_to_response("node.html", context, context_instance=RequestContext(request))
+    return render_to_response("Page.html", context, context_instance=RequestContext(request))
  
 def profile(request):
     if request.user.is_authenticated():
@@ -54,84 +54,84 @@ def profile(request):
         } 
         return render_to_response("profile.html", context, context_instance=RequestContext(request))
 
-def editnode(request, nodeid):
-    node = findNode(nodeid)
-    if not node:
+def editPage(request, Pageid):
+    Page = findPage(Pageid)
+    if not Page:
         return go404()
-    if request.user.is_staff or node.author == findUser(request.user):
-        already_written = {'action': node.action, 'text': node.text}
-        form = NodeForm(already_written)
-        return render_to_response("editinganode.html", {'form': form, 'node': node}, context_instance=RequestContext(request))
+    if request.user.is_staff or Page.author == findUser(request.user):
+        already_written = {'action': Page.action, 'text': Page.text}
+        form = PageForm(already_written)
+        return render_to_response("editingaPage.html", {'form': form, 'Page': Page}, context_instance=RequestContext(request))
     return goHome()
 
-def submiteditednode(request, nodeid):
+def submiteditedPage(request, Pageid):
     if request.user.is_authenticated() and request.method == "POST":
-        if request.user.is_staff or node.author == findUser(request.user):
-            node = findNode(nodeid)
-            if not node:
+        if request.user.is_staff or Page.author == findUser(request.user):
+            Page = findPage(Pageid)
+            if not Page:
                 return go404()
-            form = NodeForm(request.POST)
+            form = PageForm(request.POST)
             if form.is_valid():
-                node.action = form.cleaned_data['action']
-                node.text = form.cleaned_data['text']
-                node.save()
-                return HttpResponseRedirect("/node:"+str(node.id)+"/") 
+                Page.action = form.cleaned_data['action']
+                Page.text = form.cleaned_data['text']
+                Page.save()
+                return HttpResponseRedirect("/Page:"+str(Page.id)+"/") 
             else:
-                return render_to_response("editinganode.html", {'form': form, 'node': node}, context_instance=RequestContext(request))
+                return render_to_response("editingaPage.html", {'form': form, 'Page': Page}, context_instance=RequestContext(request))
     return goHome()
 
-def writenextnode(request, parentid):
-    if request.user.is_authenticated() and 'nodeid' in request.GET and request.GET['nodeid'] == parentid:
+def writenextPage(request, parentid):
+    if request.user.is_authenticated() and 'Pageid' in request.GET and request.GET['Pageid'] == parentid:
         if (not parentid and user.is_staff()) or parentid:
-            form = NodeForm
-            return render_to_response("writinganewnode.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
+            form = PageForm
+            return render_to_response("writinganewPage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome()
 
-def submitnewnode(request, parentid):
+def submitnewPage(request, parentid):
     if request.user.is_authenticated() and request.method == "POST":
         if (not parentid and user.is_staff()) or parentid:    
-            form = NodeForm(request.POST)
+            form = PageForm(request.POST)
             if form.is_valid():
-                node = Node()
+                Page = Page()
                 if int(parentid):
-                    node.parent = Node.objects.all().get(id=parentid)
+                    Page.parent = Page.objects.all().get(id=parentid)
                 else:
-                    node.parent = None
-                node.author = request.user
-                node.action = form.cleaned_data['action']
-                node.text = form.cleaned_data['text']            
-                node.points = 0
-                node.save()
-                return HttpResponseRedirect("/node:"+str(node.id)+"/")
+                    Page.parent = None
+                Page.author = request.user
+                Page.action = form.cleaned_data['action']
+                Page.text = form.cleaned_data['text']            
+                Page.points = 0
+                Page.save()
+                return HttpResponseRedirect("/Page:"+str(Page.id)+"/")
             else:
-                return render_to_response("writinganewnode.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
+                return render_to_response("writinganewPage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome() 
 
-def approvenode(request, nodeid):
+def approvePage(request, Pageid):
     if request.user.is_authenticated() and request.method == "POST":
-        node = findNode(nodeid)
+        Page = findPage(Pageid)
         properties = findProperties(request.user)
-        if not node in properties.already_approved_nodes.all():
-            properties.already_approved_nodes.add(node)
-            node.points += 1
-            node.save()
-            return HttpResponseRedirect("/node:"+str(node.id)+"/")
+        if not Page in properties.already_approved_Pages.all():
+            properties.already_approved_Pages.add(Page)
+            Page.points += 1
+            Page.save()
+            return HttpResponseRedirect("/Page:"+str(Page.id)+"/")
         else:
-            return HttpResponseRedirect("/node:"+str(node.id)+"/")
+            return HttpResponseRedirect("/Page:"+str(Page.id)+"/")
     else:     
         return goHome()
 
-def deletebranch(request, nodeid):
+def deletebranch(request, Pageid):
     if request.user.is_staff:
-        node = findNode(nodeid)
-        if node.parent:
-            parentNode = node.parent
-            node.kill_branch()
-            return HttpResponseRedirect("/node:"+str(parentNode.id)+"/")
+        Page = findPage(Pageid)
+        if Page.parent:
+            parentPage = Page.parent
+            Page.kill_branch()
+            return HttpResponseRedirect("/Page:"+str(parentPage.id)+"/")
         else:
-            node.kill_branch()
+            Page.kill_branch()
             return HttpResponseRedirect("/")
     return goHome()
 
-def node404(request):
-    return render_to_response("404node.html", context_instance=RequestContext(request))
+def Page404(request):
+    return render_to_response("404Page.html", context_instance=RequestContext(request))

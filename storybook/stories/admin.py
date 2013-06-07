@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Node, Properties
+from models import Page, Properties
 
-admin.site.register(Node)
+admin.site.register(Page)
 admin.site.register(Properties)

@@ -11,15 +11,15 @@
     <section>
       <h2>{{user.username}}</h2>
       <p>Total Points: {{ properties.getPoints }}</p>
-      {% if properties.getNodes %}
+      {% if properties.getPages %}
       <hr>
       <ul>
-        {% for node in properties.getNodes %}
+        {% for Page in properties.getPages %}
           <li>
-            <a href="/node:{{ node.id }}/"><strong>{{ node.action }}</strong></a>
+            <a href="/Page:{{ Page.id }}/"><strong>{{ Page.action }}</strong></a>
             <ul>
-              <li>Last Edited: {{ node.lastedited }}</li>
-              <li>Points: {{ node.points }}</li>
+              <li>Last Edited: {{ Page.lastedited }}</li>
+              <li>Points: {{ Page.points }}</li>
             </ul> 
           </li>
         {% endfor %}
