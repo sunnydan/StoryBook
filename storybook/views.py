@@ -50,7 +50,7 @@ def editpage(request, pageid):
     if not page:
         return go404()
     if request.user.is_staff or page.author == findUser(request.user):
-        already_written = {'short_desc': page.short_desc, 'text': page.text}
+        already_written = {'short_desc': page.short_desc, 'long_desc': page.long_desc}
         form = pageForm(already_written)
         return render_to_response("editingapage.html", {'form': form, 'page': page}, context_instance=RequestContext(request))
     return goHome()
@@ -64,7 +64,7 @@ def submiteditedpage(request, pageid):
             form = pageForm(request.POST, request.FILES)
             if form.is_valid():
                 page.short_desc = form.cleaned_data['short_desc']
-                page.text = form.cleaned_data['text']
+                page.long_desc = form.cleaned_data['long_desc']
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/") 
             else:
@@ -90,7 +90,7 @@ def submitnewpage(request, parentid):
                     page.parent = None
                 page.author = request.user
                 page.short_desc = form.cleaned_data['short_desc']
-                page.text = form.cleaned_data['text']            
+                page.long_desc = form.cleaned_data['long_desc']            
                 page.points = 0
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/")
