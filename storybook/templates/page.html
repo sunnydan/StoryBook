@@ -28,9 +28,11 @@
       {{ page.long_desc|safe }}
     </div>
     {% include "fontscript.html" %}
-    <hr/>
-    <p style="color: #2F6188; display: inline;">What happens next?</p>
-    {% include "nextpages.html" %}
+    {% if nextpage1 or user.is_authenticated %}
+      <hr/>
+      <p style="color: #2F6188; display: inline;">What happens next?</p>
+      {% include "nextpages.html" %}
+    {% endif %}
   </section>
   <!--ENDTEMPLATE-->
 {% endblock %}
