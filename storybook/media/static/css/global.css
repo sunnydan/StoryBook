@@ -117,6 +117,11 @@ section {
     font-size: 0.9em;
 }
 
+#illustration-big {
+    width: 710px;
+    height: auto;
+}
+
 /* Site footer style */
 footer {
     margin: 0px 30px 0px 30px;

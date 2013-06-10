@@ -29,11 +29,15 @@ def page(request, pageid):
         nextpage1 = nextpages[0]
     if len(nextpages)>1:
         nextpage2 = nextpages[1]
+    illustration_sizing = "illustration-small"
+    if page.illustration.width > 710:
+        illustration_sizing = "illustration-big"
     context = {
         'page': page,
         'page_is_users': page_is_users,
         'nextpage1': nextpage1, 
-        'nextpage2': nextpage2, 
+        'nextpage2': nextpage2,
+        'illustration_sizing': illustration_sizing,
         }
     return render_to_response("page.html", context, context_instance=RequestContext(request))
  
