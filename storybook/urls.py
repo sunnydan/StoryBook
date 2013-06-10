@@ -19,7 +19,6 @@ urlpatterns = patterns('',
     url(r'^submitnewpage:(\d+)/$', submitnewpage),
     url(r'^editpage:(\d+)/$', editpage),
     url(r'^submiteditedpage:(\d+)/$', submiteditedpage),
-    url(r'^approve:(\d+)/$', approvepage),
     url(r'^deletebranch:(\d+)/$', deletebranch),
 
     url(r'^page;404/$', page404),

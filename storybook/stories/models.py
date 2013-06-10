@@ -21,7 +21,6 @@ class Page(models.Model):
 class Properties(models.Model):
     user = models.OneToOneField(User)
     avatar = models.ImageField(upload_to='images/user_avatars/%Y/%m/%d') 
-    already_approved_pages = models.ManyToManyField(Page)    
  
     def __unicode__(self):
         return str(self.user.username)

@@ -93,26 +93,11 @@ def submitnewpage(request, parentid):
                 page.short_desc = form.cleaned_data['short_desc']
                 page.illustration = request.FILES['illustration']
                 page.long_desc = form.cleaned_data['long_desc']            
-                page.points = 0
                 page.save()
                 return HttpResponseRedirect("/page:"+str(page.id)+"/")
             else:
                 return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome() 
-
-def approvepage(request, pageid):
-    if request.user.is_authenticated() and request.method == "POST":
-        page = findPage(pageid)
-        properties = findProperties(request.user)
-        if not page in properties.already_approved_pages.all():
-            properties.already_approved_pages.add(page)
-            page.points += 1
-            page.save()
-            return HttpResponseRedirect("/page:"+str(page.id)+"/")
-        else:
-            return HttpResponseRedirect("/page:"+str(page.id)+"/")
-    else:     
-        return goHome()
 
 def deletebranch(request, pageid):
     if request.user.is_staff:
