@@ -4,10 +4,10 @@
   <div id="topthings">
     {% if page.parent %}
       <a id="previous" href="/page:{{ page.parent.id }}/">prev</a>
-      <h1 class="heading">{{ page.short_desc }}</h1>
     {% else %}
-      <h1 class="heading2">{{ page.short_desc }}</h1>
+      <a id="previous" href="/">prev</a>
     {% endif %}
+      <h1 class="heading">{{ page.short_desc }}</h1>
     {% if page_is_users or user.is_staff %}
       <form style="display: inline-block" action="/editpage:{{ page.id }}/" method="get">
         <input type="hidden" name="pageid" value="{{page.id}}">
