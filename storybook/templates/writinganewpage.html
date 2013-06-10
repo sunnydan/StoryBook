@@ -3,6 +3,27 @@
 {% block content %}
   <!--TEMPLATE: writinganewpage.html -->
   {% if user.is_authenticated %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#id_short_desc')
+              .each(function() {
+                  $(this).data('default', this.value);
+                  $(this).css("color", "gray")
+              })
+              .focusin(function() {
+                  if ( this.value == $(this).data('default') ) {
+                      this.value = '';
+                      $(this).css("color", "black")
+                  }
+              })
+              .focusout(function() {
+                  if ( this.value == '' ) {
+                      this.value = $(this).data('default');
+                      $(this).css("color", "gray")
+                  }
+              });                   
+        }); 
+    </script> 
     <h1 class="heading">Write the next part of the story!</h1>
     <section>
       {{ form.media }}
