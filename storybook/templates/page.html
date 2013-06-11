@@ -9,13 +9,13 @@
     {% endif %}
       <h1 class="heading">{{ page.short_desc }}</h1>
     {% if page_is_users or user.is_staff %}
-      <form style="display: inline-block" action="/editpage:{{ page.id }}/" method="get">
+      <form id="edit-button" action="/editpage:{{ page.id }}/" method="get">
         <input type="hidden" name="pageid" value="{{page.id}}">
         <input type="submit" value="Edit Page">
       </form>
     {% endif %}
     {% if user.is_staff %}
-      <a href="/deletebranch:{{ page.id }}/">
+      <a id="delete-button" href="/deletebranch:{{ page.id }}/">
         <button onclick="return confirm('Are you sure you would like to delete this branch? This page and every page following it will be deleted.');">Delete Branch</button>
       </a>
     {% endif %}

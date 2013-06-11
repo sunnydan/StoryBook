@@ -20,6 +20,7 @@ header {
     background: #1B6FB0;
     width: 100%;
     display: inline-block;
+    margin-bottom: -5px;
 }
 
 #h_left{
@@ -94,6 +95,19 @@ section {
 
 #previous {
     display: inline-block;
+}
+
+#edit-button {
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
+    margin-right: 30px;
+}
+
+#delete-button {
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
 }
 
 /* Site body style */
