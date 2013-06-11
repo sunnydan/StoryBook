@@ -13,11 +13,11 @@
       {% if properties.getPages %}
       <hr>
       <ul>
-        {% for Page in properties.getPages %}
+        {% for page in properties.getPages %}
           <li>
-            <a href="/Page:{{ Page.id }}/"><strong>{{ Page.short_desc }}</strong></a>
+            <a href="/page:{{ page.id }}/"><strong>{{ page.short_desc }}</strong></a>
             <ul>
-              <li>Last Edited: {{ Page.lastedited }}</li>
+              <li>Last Edited: {{ page.lastedited }}</li>
             </ul> 
           </li>
         {% endfor %}
