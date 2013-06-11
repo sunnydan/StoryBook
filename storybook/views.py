@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from forms import pageForm
+from forms import PageForm
 from stories.models import Page, Properties
 from registrationviews import *
 from django.http import HttpResponseRedirect
@@ -55,7 +55,7 @@ def editpage(request, pageid):
         return go404()
     if request.user.is_staff or page.author == findUser(request.user):
         already_written = {'short_desc': page.short_desc, 'long_desc': page.long_desc}
-        form = pageForm(already_written)
+        form = PageForm(already_written)
         return render_to_response("editingapage.html", {'form': form, 'page': page}, context_instance=RequestContext(request))
     return goHome()
 
@@ -65,7 +65,7 @@ def submiteditedpage(request, pageid):
         if not page:
             return go404()
         if request.user.is_staff or page.author == findUser(request.user):
-            form = pageForm(request.POST, request.FILES)
+            form = PageForm(request.POST, request.FILES)
             if form.is_valid():
                 page.short_desc = form.cleaned_data['short_desc']
                 page.illustration = request.FILES['illustration']
@@ -79,14 +79,14 @@ def submiteditedpage(request, pageid):
 def writenextpage(request, parentid):
     if request.user.is_authenticated() and 'pageid' in request.GET and request.GET['pageid'] == parentid:
         if (not parentid and user.is_staff()) or parentid:
-            form = pageForm
+            form = PageForm
             return render_to_response("writinganewpage.html", {'form': form, 'parentid': parentid}, context_instance=RequestContext(request))
     return goHome()
 
 def submitnewpage(request, parentid):
     if request.user.is_authenticated() and request.method == "POST":
         if (not parentid and user.is_staff()) or parentid:    
-            form = pageForm(request.POST, request.FILES)
+            form = PageForm(request.POST, request.FILES)
             if form.is_valid():
                 page = Page()
                 if int(parentid):
