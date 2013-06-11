@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Story Tree{% endblock %}
+{% block topthings %}
+  <div id="topthings">
+    <h1 class="heading2">Story Tree of {{ rootpage.short_desc }}</h1>
+  </div>
+{% endblock %}
+{% block content %}
+  <!--TEMPLATE: storytree.html -->
+  <section>
+    <canvas id="tree-canvas"></canvas>
+    {% include "treescript.html" %}
+  </section>
+  <!--ENDTEMPLATE-->
+{% endblock %}

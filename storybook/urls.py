@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^editpage:(\d+)/$', editpage),
     url(r'^submiteditedpage:(\d+)/$', submiteditedpage),
     url(r'^deletebranch:(\d+)/$', deletebranch),
+    url(r'^viewtree:(\d+)/$', viewtree),
 
     url(r'^page;404/$', page404),
 

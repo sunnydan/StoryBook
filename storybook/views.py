@@ -115,5 +115,22 @@ def deletebranch(request, pageid):
             return HttpResponseRedirect("/")
     return goHome()
 
+def viewtree(request, pageid):
+    page = findPage(pageid)
+    if not page:
+        return go404()
+    else:
+        currentpage = page
+        while currentpage.parent:
+            currentpage = currentpage.parent
+        rootpage = currentpage
+        
+    context = {
+        'rootpage': rootpage,
+        'page': page,
+    }
+    return render_to_response("storytree.html", context, context_instance=RequestContext(request))
+
+
 def page404(request):
     return render_to_response("404page.html", context_instance=RequestContext(request))

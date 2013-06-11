@@ -32,6 +32,7 @@
     {% if nextpage1 or user.is_authenticated %}
       <hr/>
       <p style="color: #2F6188; display: inline;">What happens next?</p>
+      <a id="view-tree" href="/viewtree:{{ page.id }}/">View Story Tree</a>
       {% include "nextpages.html" %}
     {% endif %}
   </section>

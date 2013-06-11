@@ -1,0 +1,24 @@
+{% extends "blank.html" %}
+{% block content %}
+  <!--TEMPLATE: treescript.html-->
+  <script>
+      function init() {
+          var canvas = $('#tree-canvas');
+          //var ctx = canvas.getContext("2d");
+          var W = window.innerWidth;
+          var H = window.innerHeight;
+          canvas.width = W;
+          canvas.height = H;
+          
+          var length, divergence, reduction, line_width, start_points = [];
+          
+          //ctx.fillStyle = "white";
+          //ctx.fillRect(0, 0, W, H);
+      }
+      
+      $(document).ready(function() {
+          init();
+      }); 
+  </script>
+  <!--ENDTEMPLATE-->
+{% endblock %}
