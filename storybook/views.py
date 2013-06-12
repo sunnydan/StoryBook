@@ -119,14 +119,12 @@ def viewtree(request, pageid):
     page = findPage(pageid)
     if not page:
         return go404()
-    else:
-        currentpage = page
-        while currentpage.parent:
-            currentpage = currentpage.parent
-        rootpage = currentpage
+    rootpage = page.get_root()
+    array = rootpage.tree_to_array()
         
     context = {
         'rootpage': rootpage,
+        'array': array,
         'page': page,
     }
     return render_to_response("storytree.html", context, context_instance=RequestContext(request))

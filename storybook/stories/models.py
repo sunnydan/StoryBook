@@ -10,20 +10,47 @@ class Page(models.Model):
     long_desc = models.TextField()
     
     def child1(self):
-        if Pages.objects.all().filter(parent=self):
-          return Pages.objects.all().filter(parent=self)[0]
+        if Page.objects.all().filter(parent=self):
+          return Page.objects.all().filter(parent=self)[0]
         return None
     
     def child2(self):
-        if len(Pages.objects.all().filter(parent=self)) > 1: 
-          return Pages.objects.all().filter(parent=self)[1]
+        if len(Page.objects.all().filter(parent=self)) > 1: 
+          return Page.objects.all().filter(parent=self)[1]
         return None
     
     def get_root(self):
-        if not parent:
+        if not self.parent:
           return self
         else:
-          return parent.get_root()
+          return self.parent.get_root()
+        
+    def tree_to_array(self):
+        if self.parent:
+            return self.get_root().tree_to_array()
+        else:
+            array = []
+            array = self.tree_to_array_recursive(array)
+            return array
+            
+    def tree_to_array_recursive(self, array):
+        array.append(self.simple_json())
+        if self.child1():
+            array = self.child1().tree_to_array_recursive(array)
+        if self.child2():
+            array = self.child2().tree_to_array_recursive(array)
+        return array 
+        
+    def simple_json(self):
+        parentid = None
+        if self.parent:
+            parentid = self.parent.id
+        json_object = {
+            "id": self.id,
+            "parentid": parentid,
+            "short_desc": self.short_desc,            
+        }
+        return json_object
         
     def __unicode__(self):
         return str(self.short_desc)
