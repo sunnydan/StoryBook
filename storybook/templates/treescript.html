@@ -5,55 +5,110 @@
     window.onload = function(){
 	var canvas = document.getElementById("tree-canvas");
 	var ctx = canvas.getContext("2d");
-	//Lets resize the canvas to occupy the section
+	
+        //Lets resize the canvas to occupy the section
         canvas.style.width = "100%";
 	var W = canvas.offsetWidth;
 	var H = canvas.offsetWidth;
 	canvas.width = W;
 	canvas.height = H;
-	
+        
+        ctx.font='12px sans-serif';
+        var linkText="http://stackoverflow.com";
+        var linkX;
+        var linkY;
+        var linkHeight=20;
+        var linkWidth;
+        var inLink = false;
+        
+	var pagearray = {{ array|safe }};
+        
 	//Some variables
 	var length, divergence, reduction, line_width, start_points = [];
 	
-	init();
+        //filling the canvas white
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, W, H);
+        
+        ctx.fillStyle = "blue";
+        
+        //length of the trunk
+        length = 125;
+        //angle at which branches will diverge !!! needs to be
+        //automatically calibrated to # of branches
+        divergence = 45
+        //Every branch will be the length of the previous branch times
+        //this number !!! May need to be calibrated to # of branches
+        //Do not make more than .75!
+        reduction = .75;
+        //width of the branch/trunk
+        line_width = 10;
+        
+        //This is the end point of the trunk, from where branches will diverge
+        //var trunk = {x: W/2, y: length+50, angle: 90};
+        //It becomes the start point for branches
+        //start_points = []; //empty the start points on every init();
+        //start_points.push(trunk);
+        
+        //Draw the trunk
+        //Y coordinates go positive downwards, hence they are inverted by deducting it
+        //from the canvas height = H
+        /*
+        ctx.beginPath();
+        ctx.moveTo(W/2, 50);
+        ctx.lineTo(W/2, 150);*/
+        ctx.strokeStyle = "brown";/*
+        ctx.lineWidth = line_width;
+        ctx.stroke();*/
+        ctx.fillText(pagearray[0].short_desc, W/2 +5, 50);
+        //linkWidth=ctx.measureText(pagearray[index].short_desc).width;
+        
+        make_branches(0, W/2, 50, 90, length, line_width);
+        
+        
+        //branches();
 	
-	function init()
-	{
-            //filling the canvas white
-            ctx.fillStyle = "white";
-            ctx.fillRect(0, 0, W, H);
+        function make_branches(index, begin_x, begin_y, last_angle, last_length, last_width) {
+            last_length = last_length * reduction;
+            last_width = last_width * reduction;
+            ctx.lineWidth = last_width;
+            if (pagearray[index].child2id != 0) {
+              ctx.beginPath();
+              var ep1 = get_endpoint(begin_x, begin_y, last_angle+divergence, last_length);
+              var ep2 = get_endpoint(begin_x, begin_y, last_angle-divergence, last_length);
+              ctx.moveTo(begin_x, begin_y);
+              ctx.lineTo(ep1.x, ep1.y);
+              ctx.moveTo(begin_x, begin_y);
+              ctx.lineTo(ep2.x, ep2.y);
+              ctx.stroke();
+              var child1index = find_child(pagearray[index].child1id);
+              var child2index = find_child(pagearray[index].child2id);
+              ctx.fillText(pagearray[child1index].short_desc, ep1.x+5, ep1.y);
+              ctx.fillText(pagearray[child2index].short_desc, ep2.x+5, ep2.y);
+              make_branches(child1index, ep1.x, ep1.y, last_angle+divergence, last_length, last_width);
+              make_branches(child2index, ep2.x, ep2.y, last_angle-divergence, last_length, last_width);
+            }
+            else if (pagearray[index].child1id != 0) {
+              ctx.beginPath();
+              var ep1 = get_endpoint(begin_x, begin_y, last_angle, length);
+              ctx.moveTo(begin_x, begin_y);
+              ctx.lineTo(ep1.x, ep1.y)
+              ctx.stroke();
+              var child1index = find_child(pagearray[index].child1id);
+              ctx.fillText(pagearray[child1index].short_desc, ep1.x+5, ep1.y);
+              make_branches(child1index, ep1.x, ep1.y, last_angle, last_length, last_width);
+            }
             
-            //Lets draw the trunk of the tree
-            //length of the trunk
-            length = 100;
-            //angle at which branches will diverge !!! needs to be
-            //automatically calibrated to # of branches
-            divergence = 45
-            //Every branch will be the length of the previous branch times
-            //this number !!! May need to be calibrated to # of branches
-            //Do not make more than .75!
-            reduction = .75;
-            //width of the branch/trunk
-            line_width = 10;
-            
-            //This is the end point of the trunk, from where branches will diverge
-            var trunk = {x: W/2, y: length+50, angle: 90};
-            //It becomes the start point for branches
-            start_points = []; //empty the start points on every init();
-            start_points.push(trunk);
-            
-            //Y coordinates go positive downwards, hence they are inverted by deducting it
-            //from the canvas height = H
-            ctx.beginPath();
-            ctx.moveTo(trunk.x, 50);
-            ctx.lineTo(trunk.x, trunk.y);
-            ctx.strokeStyle = "brown";
-            ctx.lineWidth = line_width;
-            ctx.stroke();
-            
-            branches();
-	}
-	
+        }
+        
+        function find_child(childid) {
+            for (var j=0; j<pagearray.length; j++) {
+                if (pagearray[j].id == childid) {
+                    return j;
+                }
+            }
+        }
+        /*
 	//Lets draw the branches now
 	function branches()
 	{
@@ -94,7 +149,7 @@
 		//Else it will fall in an long loop
 		if(length > 2) setTimeout(branches, 50);
 		//else setTimeout(init, 500);
-	}
+	}*/
 	
 	function get_endpoint(x, y, a, length)
 	{

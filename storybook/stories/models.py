@@ -12,12 +12,12 @@ class Page(models.Model):
     def child1(self):
         if Page.objects.all().filter(parent=self):
           return Page.objects.all().filter(parent=self)[0]
-        return None
+        return 0
     
     def child2(self):
         if len(Page.objects.all().filter(parent=self)) > 1: 
           return Page.objects.all().filter(parent=self)[1]
-        return None
+        return 0
     
     def get_root(self):
         if not self.parent:
@@ -42,13 +42,17 @@ class Page(models.Model):
         return array 
         
     def simple_json(self):
-        parentid = None
-        if self.parent:
-            parentid = self.parent.id
+        child1id = 0
+        child2id = 0
+        if self.child1():
+            child1id = self.child1().id
+        if self.child2():
+            child2id = self.child2().id
         json_object = {
             "id": self.id,
-            "parentid": parentid,
-            "short_desc": self.short_desc,            
+            "short_desc": self.short_desc.encode('ascii', 'ignore'),
+            "child1id": child1id,
+            "child2id": child2id,
         }
         return json_object
         
