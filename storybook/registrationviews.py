@@ -11,14 +11,14 @@ from stories.models import *
 from django.http import HttpResponseRedirect
 
 class RichUserCreationForm(UserCreationForm):
-    # first_name = forms.CharField(label = "First name")
-    # last_name = forms.CharField(label = "Last name")
+    first_name = forms.CharField(label = "First name")
+    last_name = forms.CharField(label = "Last name")
 
     def save(self, commit=True):
         user = super(RichUserCreationForm, self).save(commit=False)
-        # self.cleaned_data["first_name"]
+        self.cleaned_data["first_name"]
         first_name = "First"
-        # self.cleaned_data["last_name"]
+        self.cleaned_data["last_name"]
         last_name = "Last"
         user.first_name = first_name
         user.last_name = last_name

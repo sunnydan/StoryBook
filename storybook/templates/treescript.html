@@ -53,7 +53,7 @@
         for (var i=0;i<pagearray.length;i++) {
           var page = pagearray[i];
           page.extra.inLink = false;
-          if(x>=page.extra.x && x <= (page.extra.x + page.extra.linkWidth) && y>=page.extra.y && y<= (page.extra.y+page.extra.linkHeight)){
+          if(x>=(page.extra.x-page.extra.linkWidth/2) && x <= (page.extra.x-page.extra.linkWidth/2 + page.extra.linkWidth) && y>=page.extra.y && y<= (page.extra.y+page.extra.linkHeight)){
             document.body.style.cursor = "pointer";
             page.extra.inLink = true;
           }
@@ -81,9 +81,10 @@
       divergence = 45
       //Every branch will be the length of the previous branch times
       //this number
-      reduction = .75;
+      length_reduction = .75;
+      width_reduction = .90;
       //width of the branch/trunk
-      line_width = 10;
+      line_width = 15;
       
       //make the line brown
       ctx.strokeStyle = "brown"
@@ -98,8 +99,8 @@
       make_branches(0, W/2, 50, 90, length, line_width);
 	
       function make_branches(index, begin_x, begin_y, last_angle, last_length, last_width) {
-        last_length = last_length * reduction;
-        last_width = last_width * reduction;
+        last_length = last_length * length_reduction;
+        last_width = last_width * width_reduction;
         ctx.lineWidth = last_width;
         if (pagearray[index].child2id != 0) {
           ctx.strokeStyle = "brown";
