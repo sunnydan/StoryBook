@@ -1,16 +1,21 @@
 {% extends "blank.html" %}
 {% block content %}
   <!--TEMPLATE: nextpages.html-->
-  <ul id="storyList">
-    {% if nextpage1 %}
+  {% if nextpage1 and not nextpage2 %}
+    <p style="color: #2F6188; font-size: 200%; display: inline;">
+      <a href="/page:{{nextpage1.id}}">Next Page</a>
+    </p>
+  {% endif %}
+  <a id="view-tree" href="/viewtree:{{ page.id }}/">View Story Tree</a>
+  {% if nextpage2 %}
+    <p style="color: #2F6188; display: inline;">What happens next?</p>
+    <ul id="storyList">
       <li><a href="/page:{{nextpage1.id}}">{{nextpage1.short_desc}}</a></li>
-    {% endif %}
-    {% if nextpage2 %}
       <li><a href="/page:{{nextpage2.id}}">{{nextpage2.short_desc}}</a></li>
-    {% endif %}
-    {% if not nextpage1 or not nextpage2 %}
-      {% include "writethenextpart.html" %}
-    {% endif %}
-  </ul>
+    </ul>
+  {% endif %}
+  {% if not nextpage1 or not nextpage2 %}
+    {% include "writethenextpart.html" %}
+  {% endif %}
   <!--ENDTEMPLATE-->
 {% endblock %}

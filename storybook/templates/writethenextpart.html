@@ -2,17 +2,15 @@
 {% block content %}
   <!--TEMPLATE: writethenextpart.html-->
   {% if user.is_authenticated %}
-    <li>
-      <form action="/writenextpage:{{ page.id }}/" method="get">
-        <input type="hidden" name="pageid" value="{{page.id}}">
-        {% if not nextpage1 %}  
-          <input type="submit" value="Write Next Page">
-        {% endif %}
-        {% if nextpage1 and not nextpage2 %}
-          <input type="submit" value="Write Another Page">
-        {% endif %}
-      </form>
-    </li>
+    <form action="/writenextpage:{{ page.id }}/" method="get">
+      <input type="hidden" name="pageid" value="{{page.id}}">
+      {% if not nextpage1 %}  
+        <input type="submit" value="Write Next Page">
+      {% endif %}
+      {% if nextpage1 and not nextpage2 %}
+        <input type="submit" value="Write Another Page">
+      {% endif %}
+    </form>
   {% endif %}
   <!--ENDTEMPLATE-->
 {% endblock %}
