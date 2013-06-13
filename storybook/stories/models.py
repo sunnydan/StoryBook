@@ -53,6 +53,7 @@ class Page(models.Model):
             "short_desc": self.short_desc.encode('ascii', 'ignore'),
             "child1id": child1id,
             "child2id": child2id,
+            "extra": {},
         }
         return json_object
         
