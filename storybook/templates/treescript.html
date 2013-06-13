@@ -121,7 +121,7 @@
         }
         else if (pagearray[index].child1id != 0) {
           ctx.beginPath();
-          var ep1 = get_endpoint(begin_x, begin_y, last_angle, length);
+          var ep1 = get_endpoint(begin_x, begin_y, last_angle, last_length);
           ctx.moveTo(begin_x, begin_y);
           ctx.lineTo(ep1.x, ep1.y)
           ctx.stroke();
