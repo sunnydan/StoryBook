@@ -16,19 +16,25 @@
       var pagearray = {{ array|safe }}
         
       canvas.addEventListener("mousemove", on_mousemove, false);
-      canvas.addEventListener( "click", on_click, false );
+      canvas.addEventListener("click", on_click, false );
         
       function addLink(page, x, y) {
-        ctx.font = '12px sans-serif';
-        ctx.fillStyle = "green";
-        ctx.fillText(page.short_desc, x, y);
-        page.extra ={
-          "x": x,
-          "y": y,
-          "linkWidth": ctx.measureText(page.short_desc).width,
-          "linkHeight": 12,
+        page.extra = {
+          "x": 0,
+          "y": 0,
+          "linkWidth": 20,
+          "linkHeight": 20,
           "inLink": false,
-          }
+        }
+        page.extra.x = x - page.extra.linkWidth/2;
+        page.extra.y = y - page.extra.linkHeight/2;
+        ctx.beginPath();
+        ctx.rect(page.extra.x, page.extra.y, page.extra.linkWidth, page.extra.linkHeight);
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'brown';
+        ctx.stroke();
       }
         
       function on_mousemove(ev) {
@@ -45,11 +51,11 @@
         document.body.style.cursor = "";
         //is the mouse over a link?
         for (var i=0;i<pagearray.length;i++) {
-          page = pagearray[i];
+          var page = pagearray[i];
           page.extra.inLink = false;
-          if(x>=page.extra.x && x <= (page.extra.x + page.extra.linkWidth) && y<=page.extra.y && y>= (page.extra.y-page.extra.linkHeight)){
+          if(x>=page.extra.x && x <= (page.extra.x + page.extra.linkWidth) && y>=page.extra.y && y<= (page.extra.y+page.extra.linkHeight)){
             document.body.style.cursor = "pointer";
-            page.extra.inLink=true;
+            page.extra.inLink = true;
           }
         }
       }
@@ -60,7 +66,7 @@
             window.location = "/page:"+pagearray[i].id+"/";
           }
         }  
-      }        
+      }
         
       //Some variables
       var length, divergence, reduction, line_width, start_points = [];
@@ -87,7 +93,7 @@
       ctx.lineTo(W/2, 50);
       ctx.lineWidth = line_width;
       ctx.stroke();
-      addLink(pagearray[0], W/2 +5, 50);
+      addLink(pagearray[0], W/2, 50);
         
       make_branches(0, W/2, 50, 90, length, line_width);
 	
@@ -96,18 +102,19 @@
         last_width = last_width * reduction;
         ctx.lineWidth = last_width;
         if (pagearray[index].child2id != 0) {
+          ctx.strokeStyle = "brown";
           ctx.beginPath();
           var ep1 = get_endpoint(begin_x, begin_y, last_angle+divergence, last_length);
           var ep2 = get_endpoint(begin_x, begin_y, last_angle-divergence, last_length);
+          var child1index = find_child(pagearray[index].child1id);
+          var child2index = find_child(pagearray[index].child2id);
           ctx.moveTo(begin_x, begin_y);
           ctx.lineTo(ep1.x, ep1.y);
           ctx.moveTo(begin_x, begin_y);
           ctx.lineTo(ep2.x, ep2.y);
           ctx.stroke();
-          var child1index = find_child(pagearray[index].child1id);
-          var child2index = find_child(pagearray[index].child2id);
-          addLink(pagearray[child1index], ep1.x+5, ep1.y);
-          addLink(pagearray[child2index], ep2.x+5, ep2.y);
+          addLink(pagearray[child1index], ep1.x, ep1.y);
+          addLink(pagearray[child2index], ep2.x, ep2.y);
           make_branches(child1index, ep1.x, ep1.y, last_angle+divergence, last_length, last_width);
           make_branches(child2index, ep2.x, ep2.y, last_angle-divergence, last_length, last_width);
         }
@@ -118,7 +125,7 @@
           ctx.lineTo(ep1.x, ep1.y)
           ctx.stroke();
           var child1index = find_child(pagearray[index].child1id);
-          addLink(pagearray[child1index], ep1.x+5, ep1.y);
+          addLink(pagearray[child1index], ep1.x, ep1.y);
           make_branches(child1index, ep1.x, ep1.y, last_angle, last_length, last_width);
         }
     }
