@@ -31,6 +31,10 @@
     {% include "fontscript.html" %}
     {% if nextpage1 or user.is_authenticated %}
       <hr/>
+      <p>
+        By {{ page.author.first_name }} {{ page.author.last_name}}
+      </p>
+      <hr/>
       {% include "nextpages.html" %}
     {% endif %}
   </section>
