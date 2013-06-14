@@ -126,6 +126,7 @@ def viewtree(request, pageid):
         'rootpage': rootpage,
         'array': array,
         'page': page,
+        'current_page_id': page.id,
     }
     return render_to_response("storytree.html", context, context_instance=RequestContext(request))
 

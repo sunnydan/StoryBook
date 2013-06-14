@@ -13,31 +13,51 @@
       canvas.width = W;
       canvas.height = H;
         
-      var pagearray = {{ array|safe }}
         
+      //bring in the binary tree (in array form), and the current page id from
+      //the view
+      var pagearray = {{ array|safe }};
+      var current_page_id = {{ current_page_id|safe }};
+        
+      //add Event listeners.
       canvas.addEventListener("mousemove", on_mousemove, false);
       canvas.addEventListener("click", on_click, false );
         
-      function addLink(page, x, y) {
+      //Create a box for a page
+      function addLink(page, ep_x, ep_y) {
+        //add some extra attributes to the page that are relavant to rendering
+        //it in the canvas
         page.extra = {
-          "x": 0,
-          "y": 0,
-          "linkWidth": 20,
-          "linkHeight": 20,
-          "inLink": false,
+          "x": 0, // x coord of box's top left corner
+          "y": 0, // y coords of box's top left corner
+          "linkWidth": 20, // width of box
+          "linkHeight": 20, // height of box
+          "inLink": false, // whether the cursor is within the bounds of the box
         }
-        page.extra.x = x - page.extra.linkWidth/2;
-        page.extra.y = y - page.extra.linkHeight/2;
+        //center the box
+        page.extra.x = ep_x - page.extra.linkWidth/2;
+        page.extra.y = ep_y - page.extra.linkHeight/2;
+        
         ctx.beginPath();
         ctx.rect(page.extra.x, page.extra.y, page.extra.linkWidth, page.extra.linkHeight);
-        ctx.fillStyle = 'yellow';
+        //if the page is the one you just came from, make it green,
+        if (page.id == current_page_id) {
+          ctx.fillStyle = 'green';
+        }
+        //otherwise make it yellow.
+        else {
+          ctx.fillStyle = 'yellow';
+        }
         ctx.fill();
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'brown';
         ctx.stroke();
       }
         
+      //Called whenever the mouse moves
       function on_mousemove(ev) {
+        //These are variables that will be the final tracked position of the
+        //cursor, relative to the top left corner of the canvas
         var x, y;
           
         // Get the mouse position relative to the canvas element.
@@ -47,13 +67,18 @@
         }
         x-=canvas.offsetLeft;
         y-=canvas.offsetTop;
-          
+        
+        //set the cursor to its normal arrow mode 
         document.body.style.cursor = "";
-        //is the mouse over a link?
+        //for every page in the tree...
         for (var i=0;i<pagearray.length;i++) {
           var page = pagearray[i];
+          //set its inLink attribute to false by default 
           page.extra.inLink = false;
-          if(x>=(page.extra.x-page.extra.linkWidth/2) && x <= (page.extra.x-page.extra.linkWidth/2 + page.extra.linkWidth) && y>=page.extra.y && y<= (page.extra.y+page.extra.linkHeight)){
+          if(x>=(page.extra.x) && x <= (page.extra.x + page.extra.linkWidth) && y>=page.extra.y && y<= (page.extra.y+page.extra.linkHeight)){
+            //if the cursor is within the same bounds as the page's box, set
+            //the cursor to it's little pointing hand mode, and set the page's
+            //inLink attribute to true.
             document.body.style.cursor = "pointer";
             page.extra.inLink = true;
           }
@@ -61,6 +86,8 @@
       }
         
       function on_click(ev) {
+        //whenever there's a click, check every page, and if the cursor is in
+        //the page's box, send the user to that page's address
         for (var i=0; i<pagearray.length;i++) {
           if (pagearray[i].extra.inLink == true) {
             window.location = "/page:"+pagearray[i].id+"/";
@@ -78,7 +105,7 @@
       //length of the trunk
       length = 125;
       //angle at which branches will divergee
-      divergence = 45
+      divergence = 45;
       //Every branch will be the length of the previous branch times
       //this number
       length_reduction = .75;
@@ -98,39 +125,61 @@
         
       make_branches(0, W/2, 50, 90, length, line_width);
 	
+      //recursive function that creates child branches, then calls addLink for those children
       function make_branches(index, begin_x, begin_y, last_angle, last_length, last_width) {
+        //reduce the length and width of the branches by 25% each generation
         last_length = last_length * length_reduction;
         last_width = last_width * width_reduction;
         ctx.lineWidth = last_width;
+        
+        //if the page has 2 children:
         if (pagearray[index].child2id != 0) {
           ctx.strokeStyle = "brown";
           ctx.beginPath();
+          
+          //get the endpoint of the branches, and indices of the child page in the array
           var ep1 = get_endpoint(begin_x, begin_y, last_angle+divergence, last_length);
           var ep2 = get_endpoint(begin_x, begin_y, last_angle-divergence, last_length);
           var child1index = find_child(pagearray[index].child1id);
           var child2index = find_child(pagearray[index].child2id);
+          
+          //draw the branches
           ctx.moveTo(begin_x, begin_y);
           ctx.lineTo(ep1.x, ep1.y);
           ctx.moveTo(begin_x, begin_y);
           ctx.lineTo(ep2.x, ep2.y);
           ctx.stroke();
+          
+          //draw the page's boxes
           addLink(pagearray[child1index], ep1.x, ep1.y);
           addLink(pagearray[child2index], ep2.x, ep2.y);
+          
+          //call the make_branches function in the child pages
           make_branches(child1index, ep1.x, ep1.y, last_angle+divergence, last_length, last_width);
           make_branches(child2index, ep2.x, ep2.y, last_angle-divergence, last_length, last_width);
         }
+        //if the page has only one child:
         else if (pagearray[index].child1id != 0) {
+          ctx.strokeStyle = "brown";
           ctx.beginPath();
+          //get the endpoint of the branch, and index of the child page in the array
           var ep1 = get_endpoint(begin_x, begin_y, last_angle, last_length);
+          var child1index = find_child(pagearray[index].child1id);
+          
+          //draw the branch
           ctx.moveTo(begin_x, begin_y);
           ctx.lineTo(ep1.x, ep1.y)
           ctx.stroke();
-          var child1index = find_child(pagearray[index].child1id);
+          
+          //draw the page's box
           addLink(pagearray[child1index], ep1.x, ep1.y);
+          
+          //call the make_branches function in the child page
           make_branches(child1index, ep1.x, ep1.y, last_angle, last_length, last_width);
         }
-    }
+      }
         
+      //using the page's id, return it's index in the pagearray  
       function find_child(childid) {
         for (var j=0; j<pagearray.length; j++) {
           if (pagearray[j].id == childid) {
